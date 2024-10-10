@@ -2,54 +2,62 @@
 #include <ofMain.h>
 
 // Constructeur
-Particle::Particle(Vector initPosition, Vector initVelocity, float initInverseMass)
-	: position(initPosition), velocity(initVelocity), inverseMass(initInverseMass), accumulatedForce(0, 0, 0) {}
+Particle::Particle(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius)
+	: position(initPosition), velocity(initVelocity), inverseMass(inverseMass), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
 
 // Destructeur
 Particle::~Particle() {}
 
 
-// Intégration de la particule en fonction du temps écoulé depuis la dernière frame avec la méthode Verlet
+// Intï¿½gration de la particule en fonction du temps ï¿½coulï¿½ depuis la derniï¿½re frame avec la mï¿½thode Verlet
 void Particle::integrate(float deltaTime) {
     if (inverseMass <= 0.0f) return;
 
-    // Calcul de l'accélération à partir de la force accumulée
+    // Calcul de l'accï¿½lï¿½ration ï¿½ partir de la force accumulï¿½e
     Vector acceleration = accumulatedForce * inverseMass;
 
-    // Mise à jour de la position avec Verlet
+    // Mise ï¿½ jour de la position avec Verlet
     Vector newPosition = position + (velocity * deltaTime) + (acceleration * (0.5f * deltaTime * deltaTime));
 
-    // Mise à jour de la vélocité avec Euler semi-implicite
+    // Mise ï¿½ jour de la vï¿½locitï¿½ avec Euler semi-implicite
     velocity = velocity + (acceleration * deltaTime);
 
-    // Mise à jour de la position et ajout à la trajectoire
+    // Mise ï¿½ jour de la position et ajout ï¿½ la trajectoire
     position = newPosition;
     trajectory.push_back(position);
 
-    // Réinitialisation de la force accumulée
+    // Rï¿½initialisation de la force accumulï¿½e
     accumulatedForce = Vector(0, 0, 0);
 }
 
 
-// Application de la force à la particule
+// Application de la force ï¿½ la particule
 void Particle::applyForce(const Vector& force) {
     accumulatedForce += force;
     
 }
 
 void Particle::draw() {
-    // Dessine la trajectoire
-    ofSetColor(255, 255, 255); 
-    for (size_t i = 1; i < trajectory.size(); ++i) {
-        ofDrawLine(trajectory[i - 1].x, trajectory[i - 1].y, trajectory[i].x, trajectory[i].y);
-    }
-
 	// Dessine la particule
-    ofSetColor(255, 0, 0); 
-    ofDrawCircle(position.x, position.y, 5);
+    ofSetColor(color); 
+    ofDrawCircle(position.x, position.y, radius);
 }
 
 float Particle::getInverseMass() const {
     return inverseMass;
+}
+
+// Distance entre le centre de deux particules
+float Particle::distance(Particle *p)
+{
+	return (this->position - p->position).norm();
+}
+
+
+
+// Vecteur normal obtenu d'un couple de particules
+Vector Particle::normalVector(Particle* p) const
+{
+	return (p->position - this->position) / (p->position - this->position).norm();
 }
 

@@ -6,18 +6,21 @@
 class Particle {
 protected:
     float inverseMass;
+    float radius;
 
 public:
     Vector position;
-    Vector velocity;  
+    Vector velocity; 
+    ofColor color;
     Vector accumulatedForce;
+    Vector normalVector(Particle* p) const;
     vector<Vector> trajectory;
 	
 
 
 
 public:
-    Particle(Vector initPosition, Vector initVelocity, float initInverseMass);
+    Particle(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius);
     ~Particle();
 
     void integrate(float deltaTime);
@@ -28,6 +31,12 @@ public:
 
     float getMass() const { return (inverseMass > 0.0f) ? 1.0f / inverseMass : 0.0f; }
     void setMass(float mass) { inverseMass = (mass > 0.0f) ? 1.0f / mass : 0.0f; }
+
+    float distance(Particle* p);
+
+    float get_radius() {
+		return this->radius;
+	}
 };
 
 #endif // PARTICLE_H

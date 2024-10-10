@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "..\Particle.h"
+#include "..\Collision.h"
 #include "ofxGui.h"
 
 
@@ -23,10 +24,12 @@ public:
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		void SpawnParticle();
+		void SpawnParticle(Vector initPosition, Vector initVelocity, ofColor color);
 
 private:
-	vector<Particle> projectiles;
+	std::vector<Particle*> particles;
+
+	Collision collisionSystem;
 
 	// GUI specification
 	ofxPanel panel;
