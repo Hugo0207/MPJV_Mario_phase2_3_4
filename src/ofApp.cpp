@@ -12,7 +12,7 @@ void ofApp::setup() {
 	// GUI
 	panel.setup();
 
-	SpawnParticle(Vector(centerX, centerY), Vector(0,0), ofColor(255, 0, 0));
+	SpawnParticle(Vector(ofGetWidth(), centerY + 10), Vector(-50, 1), ofColor(255, 0, 0));
 	SpawnParticle(Vector(0, centerY), Vector(30, 0), ofColor(0, 255, 0));
 }
 

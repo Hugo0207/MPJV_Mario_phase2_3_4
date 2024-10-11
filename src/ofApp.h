@@ -29,7 +29,7 @@ public:
 private:
 	std::vector<Particle*> particles;
 
-	Collision collisionSystem;
+	Collision collisionSystem = Collision(1);
 
 	// GUI specification
 	ofxPanel panel;

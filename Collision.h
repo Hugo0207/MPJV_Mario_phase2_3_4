@@ -5,20 +5,23 @@
 
 class Collision
 {
-	public:
+private:
+	float elasticityCoeff;
 
-		Collision();
+public:
+
+	Collision(float elasticityCoeff);
 
 		
-		void update(std::vector<Particle*> Particles);
+	void update(std::vector<Particle*> Particles);
 
-		bool detectionCollision(Particle* pA, Particle* pB);
+	bool detectionCollision(Particle* pA, Particle* pB);
 
-		Vector impactPoint(Particle* pA, Particle* pB);
+	Vector impactPoint(Particle* pA, Particle* pB);
 
-		float proportionalMove(Particle* pA, Particle* pB);
+	float proportionalMove(Particle* pA, Particle* pB);
 
-		void resolveDetection(Particle * pA, Particle * pB);
+	void resolveDetection(Particle * pA, Particle * pB);
 
 
 };

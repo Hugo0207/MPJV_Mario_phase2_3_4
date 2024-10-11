@@ -1,7 +1,14 @@
 #include "Collision.h"
 
-Collision::Collision() {
-
+Collision::Collision(float elasticityCoeff) {
+	if (elasticityCoeff >= 0 && elasticityCoeff <= 1)
+	{
+		this->elasticityCoeff = elasticityCoeff;
+	}
+	else
+	{
+		this->elasticityCoeff = 1;
+	}
 }
 
 // Met à jour le système de collision
@@ -14,9 +21,6 @@ void Collision::update(std::vector<Particle*> particles) {
 			if (detectionCollision(*it1, *it2))
 
 			{
-				(*it2)->velocity = Vector();
-				(*it1)->velocity = Vector();
-
 				Vector impact = impactPoint(*it1, *it2);
 
 				resolveDetection(*it1, *it2);
@@ -72,4 +76,11 @@ void Collision::resolveDetection(Particle* pA, Particle* pB) {
 
 	pA->position = posA;
 	pB->position = posB;
+
+	Vector resultingVelocity = pA->velocity - pB->velocity;
+
+	float impulsionMagnitude = ((elasticityCoeff + 1) * resultingVelocity.dotProduct(normalVector)) / (pA->getInverseMass() + pB->getInverseMass());
+
+	pA->velocity = pA->velocity - ((normalVector * impulsionMagnitude) / pA->getMass());
+	pB->velocity = pB->velocity + ((normalVector * impulsionMagnitude) / pB->getMass());
 }
