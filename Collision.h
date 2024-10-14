@@ -18,6 +18,8 @@ public:
 
 	bool detect(Particle* pA, Particle* pB);
 
+	bool isRestContact(Particle* pA, Particle* pB, float deltaTime);
+
 	Vector impactPoint(Particle* pA, Particle* pB);
 
 	float proportionalDetach(Particle* pA, Particle* pB);

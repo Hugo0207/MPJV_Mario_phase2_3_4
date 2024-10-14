@@ -24,18 +24,8 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 			{
 				Vector impact = impactPoint(*p1, *p2);
 
-				// Vérifie si la collision trouvée est au repos
-				Vector normalVector = (*p1)->normalVector(*p2);
-				Vector gravityProjectionToNormal = ((*gravity) * deltaTime).projectTo(normalVector);
-				Vector p1VelocityProjectionToNormal = (*p1)->velocity.projectTo(normalVector);
-				Vector p2VelocityProjectionToNormal = (*p2)->velocity.projectTo(normalVector);
-
-				bool isP1Stationary = p1VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
-				bool isP2Stationary = p2VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
-				bool isRestCollision = isP1Stationary && isP2Stationary;
-
-				// On résout la collision ssi elle n'est pas au repos
-				if (!isRestCollision) {
+				// On résout la collision ssi elle n'est pas détectée au repos
+				if (!isRestContact(*p1, *p2, deltaTime)) {
 					resolve(*p1, *p2);
 				}
 			}
@@ -63,6 +53,20 @@ bool Collision::detect(Particle* pA, Particle* pB) {
 		return true;
 	}
 	return false;
+}
+
+// Vérifie si la collision trouvée est un contact au repos
+bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
+{
+	Vector normalVector = pA->normalVector(pB);
+	Vector gravityProjectionToNormal = ((*gravity) * deltaTime).projectTo(normalVector);
+	Vector p1VelocityProjectionToNormal = pA->velocity.projectTo(normalVector);
+	Vector p2VelocityProjectionToNormal = pB->velocity.projectTo(normalVector);
+
+	bool isP1Stationary = p1VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+	bool isP2Stationary = p2VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+
+	return isP1Stationary && isP2Stationary;
 }
 
 
