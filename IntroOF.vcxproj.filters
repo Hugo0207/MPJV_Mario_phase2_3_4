@@ -49,6 +49,18 @@
     <ClCompile Include="Collision.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceRegistry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -114,6 +126,18 @@
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceRegistry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityGenerator.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
