@@ -56,6 +56,11 @@ Vector Vector::crossProduct(const Vector& vectorToUse) const {
     );
 }
 
+// Projection
+Vector Vector::projectTo(const Vector& targetVector) const {
+    return targetVector.normalize() * (this->dotProduct(targetVector) / targetVector.norm());
+}
+
 // Update method
 void Vector::update(float newX, float newY, float newZ) {
     x = newX;

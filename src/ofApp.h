@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "..\Particle.h"
 #include "..\Collision.h"
+#include "..\World.h"
 #include "ofxGui.h"
 
 
@@ -27,9 +28,9 @@ public:
 		void SpawnParticle(Vector initPosition, Vector initVelocity, ofColor color);
 
 private:
-	std::vector<Particle*> particles;
 
-	Collision collisionSystem = Collision(1);
+	World* world;
+	Collision* collisionSystem;
 
 	// GUI specification
 	ofxPanel panel;

@@ -37,6 +37,9 @@ public:
     float dotProduct(const Vector& vectorToUse) const;
     Vector crossProduct(const Vector& vectorToUse) const;
 
+    // Projection 
+    Vector projectTo(const Vector& targetVector) const;
+
     // Update method
     void update(float newX, float newY, float newZ = 0.0f);
 

@@ -9,6 +9,9 @@ void ofApp::setup() {
 	int centerX = ofGetWidth() / 2;
 	int centerY = ofGetHeight() / 2;	
 
+	world = new World();
+	collisionSystem = new Collision(1);
+
 	// GUI
 	panel.setup();
 
@@ -20,7 +23,7 @@ void ofApp::setup() {
 void ofApp::update() {
 	float deltaTime = ofGetLastFrameTime() * 5;
 
-	for (auto& particle : particles)
+	for (auto& particle : world->particles)
 	{
 		particle->integrate(deltaTime);
 
@@ -29,13 +32,13 @@ void ofApp::update() {
 			particle->velocity = Vector(0, 0, 0);
         }
 
-		collisionSystem.update(particles);
+		collisionSystem->update(world->particles);
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	for (auto& particle : particles) {
+	for (auto& particle : world->particles) {
 		particle->draw();
 	}
 
@@ -57,7 +60,7 @@ void ofApp::SpawnParticle(Vector initPosition, Vector initVelocity, ofColor colo
 		ofColor(color),
 		20
 	);
-	particles.push_back(newParticle);
+	world->particles.push_back(newParticle);
 }
 
 //--------------------------------------------------------------

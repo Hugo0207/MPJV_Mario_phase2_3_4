@@ -1,29 +1,43 @@
 #include "Collision.h"
 
-Collision::Collision(float elasticityCoeff) {
-	if (elasticityCoeff >= 0 && elasticityCoeff <= 1)
+Collision::Collision(float restitutionCoeff, Vector* gravity) {
+	if (restitutionCoeff >= 0 && restitutionCoeff <= 1)
 	{
-		this->elasticityCoeff = elasticityCoeff;
+		this->restitutionCoeff = restitutionCoeff;
 	}
 	else
 	{
-		this->elasticityCoeff = 1;
+		this->restitutionCoeff = 1;
 	}
+
+	gravity = gravity;
 }
 
 // Met à jour le système de collision
 // Détecte les collisions chaque couple de particule puis résout les collisions détectées
-void Collision::update(std::vector<Particle*> particles) {
-	for (auto it1 = particles.begin(); it1 != particles.end(); it1++)
+void Collision::update(std::vector<Particle*> particles, float deltaTime) {
+	for (auto p1 = particles.begin(); p1 != particles.end(); p1++)
 	{
-		for (auto it2 = it1 + 1; it2 != particles.end(); it2++)
+		for (auto p2 = p1 + 1; p2 != particles.end(); p2++)
 		{
-			if (detectionCollision(*it1, *it2))
-
+			if (detect(*p1, *p2))
 			{
-				Vector impact = impactPoint(*it1, *it2);
+				Vector impact = impactPoint(*p1, *p2);
 
-				resolveDetection(*it1, *it2);
+				// Vérifie si la collision trouvée est au repos
+				Vector normalVector = (*p1)->normalVector(*p2);
+				Vector gravityProjectionToNormal = ((*gravity) * deltaTime).projectTo(normalVector);
+				Vector p1VelocityProjectionToNormal = (*p1)->velocity.projectTo(normalVector);
+				Vector p2VelocityProjectionToNormal = (*p2)->velocity.projectTo(normalVector);
+
+				bool isP1Stationary = p1VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+				bool isP2Stationary = p2VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+				bool isRestCollision = isP1Stationary && isP2Stationary;
+
+				// On résout la collision ssi elle n'est pas au repos
+				if (!isRestCollision) {
+					resolve(*p1, *p2);
+				}
 			}
 		}
 	}
@@ -40,11 +54,12 @@ Vector Collision::impactPoint(Particle* pA, Particle* pB) {
 }
 
 // Détecte la collision entre deux particules données
-bool Collision::detectionCollision(Particle* pA, Particle* pB) {
+bool Collision::detect(Particle* pA, Particle* pB) {
 	float distanceCenter = pA->get_radius() + pB->get_radius();
 
 	if (pA->distance(pB) <= distanceCenter)
 	{
+		proportionalDetach(pA, pB);
 		return true;
 	}
 	return false;
@@ -52,34 +67,36 @@ bool Collision::detectionCollision(Particle* pA, Particle* pB) {
 
 
 // Sépare les deux particules après la collision
-float Collision::proportionalMove(Particle* pA, Particle* pB) {
+float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
+
+	float separationMagnitude = 0;
 
 	if (pB->getMass() > 0)
 	{
-		return (pB->getMass() / (pA->getMass() + 1 / pB->getMass())) * penetration;
+		separationMagnitude = (pB->getMass() / (pA->getMass() + 1 / pB->getMass())) * penetration;
 	}
-	else {
-		return 0;
-	}
-}
-
-/*
-* postA = CA - N.(mB/mA+mB)
-*/
-void Collision::resolveDetection(Particle* pA, Particle* pB) {
+	 
 	Vector normalVector = pA->normalVector(pB);
 
-	Vector posA = pA->position - normalVector * proportionalMove(pA, pB);
-	Vector posB = pB->position + normalVector * proportionalMove(pB, pA);
+	Vector posA = pA->position - normalVector * proportionalDetach(pA, pB);
+	Vector posB = pB->position + normalVector * proportionalDetach(pB, pA);
 
 
 	pA->position = posA;
 	pB->position = posB;
+}
+
+/*
+* Résout une collision entre un couple de particule à l'aide d'impulsions
+*/
+void Collision::resolve(Particle* pA, Particle* pB) {
+
+	Vector normalVector = pA->normalVector(pB);
 
 	Vector resultingVelocity = pA->velocity - pB->velocity;
 
-	float impulsionMagnitude = ((elasticityCoeff + 1) * resultingVelocity.dotProduct(normalVector)) / (pA->getInverseMass() + pB->getInverseMass());
+	float impulsionMagnitude = ((restitutionCoeff + 1) * resultingVelocity.dotProduct(normalVector)) / (pA->getInverseMass() + pB->getInverseMass());
 
 	pA->velocity = pA->velocity - ((normalVector * impulsionMagnitude) / pA->getMass());
 	pB->velocity = pB->velocity + ((normalVector * impulsionMagnitude) / pB->getMass());
