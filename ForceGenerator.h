@@ -5,8 +5,6 @@ class ForceGenerator
 {
 public:
 	virtual void updateForce(Particle* particle, float duration);
-	virtual void getName() {
-		cout << "force" << endl;
-	};
+	virtual void getName();
 };
 

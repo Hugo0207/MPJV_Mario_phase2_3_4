@@ -37,11 +37,11 @@ void World::applyWorldForces(float duration)
 	for (auto& particle : particles) {
 		if (particle != player) {
 
-			ForceGenerator springGenerator = SpringGenerator(player, 1, 25);
-			ForceGenerator springGeneratorPlayer = SpringGenerator(particle, 1, 25);
+			ForceGenerator * springGenerator = new SpringGenerator(player, 1, 25);
+			ForceGenerator * springGeneratorPlayer = new SpringGenerator(particle, 1, 25);
 
-			forceRegistry.add(particle, &springGenerator);
-			forceRegistry.add(player, &springGeneratorPlayer);
+			//forceRegistry.add(particle, springGenerator);
+			//forceRegistry.add(player, springGeneratorPlayer);
 			
 		}
 	}

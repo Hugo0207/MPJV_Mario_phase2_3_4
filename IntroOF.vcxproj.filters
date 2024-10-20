@@ -44,16 +44,16 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="ElasticSpringGenerator.cpp">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClCompile>
     <ClCompile Include="RigidSpringGenerator.cpp">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClCompile>
     <ClCompile Include="SpringGenerator.cpp">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClCompile>
     <ClCompile Include="SpringHooke1Generator.cpp">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClCompile>
     <ClCompile Include="Vector.cpp">
       <Filter>src\Vector</Filter>
@@ -108,9 +108,6 @@
     <Filter Include="addons\ofxGui\src">
       <UniqueIdentifier>{1A51B104--803-E-40-67-B-D9C-6188C60F57D2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\SpringGenerator">
-      <UniqueIdentifier>{a7f203ae-1e18-4cb3-abb7-4034df0cac73}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Vector">
       <UniqueIdentifier>{a73e6525-f0b8-44c4-ba86-e58995728958}</UniqueIdentifier>
     </Filter>
@@ -119,6 +116,9 @@
     </Filter>
     <Filter Include="src\Particle">
       <UniqueIdentifier>{99420acb-e4c4-4e26-82b2-7d6280da95bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Force\SpringGenerator">
+      <UniqueIdentifier>{a7f203ae-1e18-4cb3-abb7-4034df0cac73}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,16 +168,16 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="ElasticSpringGenerator.h">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClInclude>
     <ClInclude Include="RigidSpringGenerator.h">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClInclude>
     <ClInclude Include="SpringGenerator.h">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClInclude>
     <ClInclude Include="SpringHooke1Generator.h">
-      <Filter>src\SpringGenerator</Filter>
+      <Filter>src\Force\SpringGenerator</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>src\Vector</Filter>

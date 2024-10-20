@@ -4,7 +4,6 @@ SpringGenerator::SpringGenerator(Particle* otherParticle, float k, float restLen
 }
 
 void SpringGenerator::updateForce(Particle* particle, float duration) {
-    cout << "test" << endl;
 
     if (!particle || !other) {
         return;  // Ne rien faire si l'un des pointeurs est invalide
@@ -18,12 +17,10 @@ void SpringGenerator::updateForce(Particle* particle, float duration) {
     float forceMagnitude = springConstant * (restLength - length);
     Vector springForce = displacement.normalize() * -forceMagnitude; // Force mise sous forme de vecteur, normalize est un vecteur unitaire direction sans magnitude
 
-    cout << "springForce" << endl;
     // Appliquer la force sur les deux particles
     particle->applyForce(springForce);
     other->applyForce(springForce * -1);  // Force égale et opposée
 }
 
 void SpringGenerator::getName() {
-    cout << "SpringGenerator" << endl;
 };
