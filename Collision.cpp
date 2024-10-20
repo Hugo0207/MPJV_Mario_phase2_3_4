@@ -1,4 +1,4 @@
-#include "Collision.h"
+ï»¿#include "Collision.h"
 
 Collision::Collision(float restitutionCoeff, Vector* gravity) {
 	if (restitutionCoeff >= 0 && restitutionCoeff <= 1)
@@ -13,8 +13,8 @@ Collision::Collision(float restitutionCoeff, Vector* gravity) {
 	gravity = gravity;
 }
 
-// Met à jour le système de collision
-// Détecte les collisions chaque couple de particule puis résout les collisions détectées
+// Met ï¿½ jour le systï¿½me de collision
+// Dï¿½tecte les collisions chaque couple de particule puis rï¿½sout les collisions dï¿½tectï¿½es
 void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 	for (auto p1 = particles.begin(); p1 != particles.end(); p1++)
 	{
@@ -24,7 +24,7 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 			{
 				Vector impact = impactPoint(*p1, *p2);
 
-				// On résout la collision ssi elle n'est pas détectée au repos
+				// On rï¿½sout la collision ssi elle n'est pas dï¿½tectï¿½e au repos
 				if (!isRestContact(*p1, *p2, deltaTime)) {
 					resolve(*p1, *p2);
 				}
@@ -43,7 +43,7 @@ Vector Collision::impactPoint(Particle* pA, Particle* pB) {
 	return impact;
 }
 
-// Détecte la collision entre deux particules données
+// Dï¿½tecte la collision entre deux particules donnï¿½es
 bool Collision::detect(Particle* pA, Particle* pB) {
 	float distanceCenter = pA->get_radius() + pB->get_radius();
 
@@ -55,7 +55,7 @@ bool Collision::detect(Particle* pA, Particle* pB) {
 	return false;
 }
 
-// Vérifie si la collision trouvée est un contact au repos
+// Vï¿½rifie si la collision trouvï¿½e est un contact au repos
 bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 {
 	Vector normalVector = pA->normalVector(pB);
@@ -70,7 +70,7 @@ bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 }
 
 
-// Sépare les deux particules après la collision
+// Sï¿½pare les deux particules aprï¿½s la collision
 float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
 
@@ -80,7 +80,7 @@ float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	{
 		separationMagnitude = (pB->getMass() / (pA->getMass() + 1 / pB->getMass())) * penetration;
 	}
-	 
+
 	Vector normalVector = pA->normalVector(pB);
 
 	Vector posA = pA->position - normalVector * proportionalDetach(pA, pB);
@@ -92,7 +92,7 @@ float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 }
 
 /*
-* Résout une collision entre un couple de particule à l'aide d'impulsions
+* Rï¿½sout une collision entre un couple de particule ï¿½ l'aide d'impulsions
 */
 void Collision::resolve(Particle* pA, Particle* pB) {
 

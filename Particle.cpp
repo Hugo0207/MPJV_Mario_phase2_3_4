@@ -1,9 +1,9 @@
-#include "Particle.h"
+﻿#include "Particle.h"
 #include <ofMain.h>
 
 // Constructeur
 Particle::Particle(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius)
-	: position(initPosition), velocity(initVelocity), inverseMass(inverseMass), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
+    : position(initPosition), velocity(initVelocity), inverseMass(inverseMass), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
 
 // Destructeur
 Particle::~Particle() {}
@@ -34,12 +34,12 @@ void Particle::integrate(float deltaTime) {
 // Application de la force � la particule
 void Particle::applyForce(const Vector& force) {
     accumulatedForce += force;
-    
+
 }
 
 void Particle::draw() {
-	// Dessine la particule
-    ofSetColor(color); 
+    // Dessine la particule
+    ofSetColor(color);
     ofDrawCircle(position.x, position.y, radius);
 }
 
@@ -48,9 +48,9 @@ float Particle::getInverseMass() const {
 }
 
 // Distance entre le centre de deux particules
-float Particle::distance(Particle *p)
+float Particle::distance(Particle* p)
 {
-	return (this->position - p->position).norm();
+    return (this->position - p->position).norm();
 }
 
 
@@ -58,6 +58,6 @@ float Particle::distance(Particle *p)
 // Vecteur normal obtenu d'un couple de particules
 Vector Particle::normalVector(Particle* p) const
 {
-	return (p->position - this->position) / (p->position - this->position).norm();
+    return (p->position - this->position) / (p->position - this->position).norm();
 }
 

@@ -13,7 +13,7 @@ public:
 
 	Collision(float restitutionCoeff, Vector* gravity);
 
-		
+
 	void update(std::vector<Particle*> Particles, float deltaTime);
 
 	bool detect(Particle* pA, Particle* pB);
@@ -24,7 +24,7 @@ public:
 
 	float proportionalDetach(Particle* pA, Particle* pB);
 
-	void resolve(Particle * pA, Particle * pB);
+	void resolve(Particle* pA, Particle* pB);
 
 
 };

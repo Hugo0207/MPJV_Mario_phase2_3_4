@@ -2,6 +2,11 @@
 #include "Particle.h"
 #include "ForceRegistry.h"
 #include "GravityGenerator.h"
+#include "FrictionGenerator.h"
+#include "SpringGenerator.h"
+#include "ElasticSpringGenerator.h"
+#include "RigidSpringGenerator.h"
+#include "SpringHooke1Generator.h"
 #include "Collision.h"
 
 class World
@@ -17,6 +22,21 @@ public:
 	// World gravity generator
 	GravityGenerator* gravityGenerator;
 
+	// World friction generator
+	FrictionGenerator* frictionGenerator;
+
+	// World spring generator
+	SpringGenerator* springGenerator;
+
+	// World 1 particle spring generator
+	SpringHooke1Generator* springHooke1Generator;
+
+	// World Tige generator
+	RigidSpringGenerator* rigidSpringGenerator;
+
+	// World Elastic generator
+	ElasticSpringGenerator* elasticSpringGenerator;
+
 	// World collision system
 	Collision* collisionSystem;
 
@@ -26,4 +46,5 @@ public:
 	// Apply world forces on a given duration
 	void applyWorldForces(float duration);
 };
+
 
