@@ -10,6 +10,7 @@ public:
     float restLength;  // Longueur à l'équilibre du ressort
 
 public:
+    SpringGenerator();
     SpringGenerator(Particle* particule, Particle* otherParticle, float k, float restLength);
     virtual void updateForce(Particle* particle, float duration);
 };

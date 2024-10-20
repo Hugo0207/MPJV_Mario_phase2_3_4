@@ -5,7 +5,8 @@ ForceRegistry::ForceRegistry() {}
 
 // Add a force to the registry
 void ForceRegistry::add(Particle* particle, ForceGenerator* forceGenerator) {
-	registry.push_back({ particle, forceGenerator });
+	ForceRegistration registration = { particle, forceGenerator };
+	registry.push_back(registration);
 }
 
 // Remove a force from the registry
@@ -30,5 +31,3 @@ void ForceRegistry::updateForces(float duration) {
 		registration.forceGenerator->updateForce(registration.particle, duration);
 	}
 }
-
-

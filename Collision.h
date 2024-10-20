@@ -7,11 +7,11 @@ class Collision
 {
 private:
 	float restitutionCoeff;
-	Vector* gravity;
+	Vector gravity;
 
 public:
 
-	Collision(float restitutionCoeff, Vector* gravity);
+	Collision(float restitutionCoeff, Vector gravity);
 
 
 	void update(std::vector<Particle*> Particles, float deltaTime);
@@ -22,7 +22,7 @@ public:
 
 	Vector impactPoint(Particle* pA, Particle* pB);
 
-	float proportionalDetach(Particle* pA, Particle* pB);
+	void proportionalDetach(Particle* pA, Particle* pB);
 
 	void resolve(Particle* pA, Particle* pB);
 

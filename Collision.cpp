@@ -1,6 +1,6 @@
 ﻿#include "Collision.h"
 
-Collision::Collision(float restitutionCoeff, Vector* gravity) {
+Collision::Collision(float restitutionCoeff, Vector gravity) {
 	if (restitutionCoeff >= 0 && restitutionCoeff <= 1)
 	{
 		this->restitutionCoeff = restitutionCoeff;
@@ -13,8 +13,8 @@ Collision::Collision(float restitutionCoeff, Vector* gravity) {
 	gravity = gravity;
 }
 
-// Met � jour le syst�me de collision
-// D�tecte les collisions chaque couple de particule puis r�sout les collisions d�tect�es
+// Met à jour le système de collision
+// Détecte les collisions chaque couple de particule puis résout les collisions détectées
 void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 	for (auto p1 = particles.begin(); p1 != particles.end(); p1++)
 	{
@@ -24,7 +24,7 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 			{
 				Vector impact = impactPoint(*p1, *p2);
 
-				// On r�sout la collision ssi elle n'est pas d�tect�e au repos
+				// On résout la collision ssi elle n'est pas détectée au repos
 				if (!isRestContact(*p1, *p2, deltaTime)) {
 					resolve(*p1, *p2);
 				}
@@ -43,7 +43,7 @@ Vector Collision::impactPoint(Particle* pA, Particle* pB) {
 	return impact;
 }
 
-// D�tecte la collision entre deux particules donn�es
+// Détecte la collision entre deux particules données
 bool Collision::detect(Particle* pA, Particle* pB) {
 	float distanceCenter = pA->get_radius() + pB->get_radius();
 
@@ -55,11 +55,11 @@ bool Collision::detect(Particle* pA, Particle* pB) {
 	return false;
 }
 
-// V�rifie si la collision trouv�e est un contact au repos
+// Vérifie si la collision trouvée est un contact au repos
 bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 {
 	Vector normalVector = pA->normalVector(pB);
-	Vector gravityProjectionToNormal = ((*gravity) * deltaTime).projectTo(normalVector);
+	Vector gravityProjectionToNormal = (gravity * deltaTime).projectTo(normalVector);
 	Vector p1VelocityProjectionToNormal = pA->velocity.projectTo(normalVector);
 	Vector p2VelocityProjectionToNormal = pB->velocity.projectTo(normalVector);
 
@@ -70,8 +70,8 @@ bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 }
 
 
-// S�pare les deux particules apr�s la collision
-float Collision::proportionalDetach(Particle* pA, Particle* pB) {
+// Sépare les deux particules après la collision
+void Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
 
 	float separationMagnitude = 0;
@@ -83,8 +83,8 @@ float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 
 	Vector normalVector = pA->normalVector(pB);
 
-	Vector posA = pA->position - normalVector * proportionalDetach(pA, pB);
-	Vector posB = pB->position + normalVector * proportionalDetach(pB, pA);
+	Vector posA = pA->position - normalVector * separationMagnitude;
+	Vector posB = pB->position + normalVector * separationMagnitude;
 
 
 	pA->position = posA;
@@ -92,7 +92,7 @@ float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 }
 
 /*
-* R�sout une collision entre un couple de particule � l'aide d'impulsions
+* Résout une collision entre un couple de particule à l'aide d'impulsions
 */
 void Collision::resolve(Particle* pA, Particle* pB) {
 

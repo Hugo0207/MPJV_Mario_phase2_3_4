@@ -17,28 +17,28 @@ public:
 	World(float gravityMagnitude, float restitutionCoeff);
 
 	// World force registry
-	ForceRegistry* forceRegistry;
+	ForceRegistry forceRegistry;
 
 	// World gravity generator
-	GravityGenerator* gravityGenerator;
+	GravityGenerator gravityGenerator;
 
 	// World friction generator
-	FrictionGenerator* frictionGenerator;
+	FrictionGenerator frictionGenerator;
 
 	// World spring generator
-	SpringGenerator* springGenerator;
+	/*SpringGenerator springGenerator;
 
 	// World 1 particle spring generator
-	SpringHooke1Generator* springHooke1Generator;
+	SpringHooke1Generator springHooke1Generator;
 
 	// World Tige generator
-	RigidSpringGenerator* rigidSpringGenerator;
+	RigidSpringGenerator rigidSpringGenerator;
 
 	// World Elastic generator
-	ElasticSpringGenerator* elasticSpringGenerator;
+	ElasticSpringGenerator elasticSpringGenerator;*/
 
 	// World collision system
-	Collision* collisionSystem;
+	Collision collisionSystem;
 
 	// Currently active particles
 	std::vector<Particle*> particles;

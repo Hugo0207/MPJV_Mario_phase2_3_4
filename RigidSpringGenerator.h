@@ -7,6 +7,7 @@ public:
     Particle* otherParticle;
     float restLength;
 
+    RigidSpringGenerator();
     RigidSpringGenerator(Particle* other, float restLength);
 
     virtual void updateForce(Particle* particle, float duration);

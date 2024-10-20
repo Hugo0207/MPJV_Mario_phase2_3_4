@@ -10,6 +10,7 @@ public:
     float k; // Constante du ressort
     float restLength; // Longueur au repos
 
+    SpringHooke1Generator();
     SpringHooke1Generator(Vector anchor, float springConstant, float restLength);
 
     // Pour les deux types de ressorts (point fixe et deux particules)

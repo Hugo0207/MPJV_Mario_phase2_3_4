@@ -9,7 +9,8 @@ GravityGenerator::GravityGenerator(float gravityMagnitude) : gravity(Vector(0, g
 void GravityGenerator::updateForce(Particle* particle, float duration) {
 	// Check if mass is valid
 	int ParticleMass = particle->getMass();
-	if (ParticleMass > 0) {
+
+	if (ParticleMass > 0.0f) {
 		particle->applyForce(gravity * ParticleMass);
 	}
 }

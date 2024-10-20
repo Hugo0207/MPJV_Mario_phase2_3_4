@@ -8,6 +8,7 @@ public:
     float k;
     float restLength;
 
+    ElasticSpringGenerator();
     ElasticSpringGenerator(Particle* other, float springConstant, float restLength);
 
     virtual void updateForce(Particle* particle, float duration);
