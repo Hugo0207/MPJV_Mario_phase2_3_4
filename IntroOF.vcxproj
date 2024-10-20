@@ -105,10 +105,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ElasticSpringGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="ForceRegistry.cpp" />
+    <ClCompile Include="FrictionGenerator.cpp" />
     <ClCompile Include="GravityGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RigidSpringGenerator.cpp" />
+    <ClCompile Include="SpringGenerator.cpp" />
+    <ClCompile Include="SpringHooke1Generator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -127,10 +133,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ElasticSpringGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceRegistry.h" />
+    <ClInclude Include="FrictionGenerator.h" />
     <ClInclude Include="GravityGenerator.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RigidSpringGenerator.h" />
+    <ClInclude Include="SpringGenerator.h" />
+    <ClInclude Include="SpringHooke1Generator.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="VectorTest.h" />
@@ -158,6 +170,9 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/D_DEBUG %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>$(OF_ROOT)\libs\openFrameworksCompiled\project\vs</AdditionalIncludeDirectories>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>

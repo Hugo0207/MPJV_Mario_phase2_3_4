@@ -28,6 +28,7 @@ void ForceRegistry::clear() {
 // Update forces of every particle in the registry
 void ForceRegistry::updateForces(float duration) {
 	for (auto& registration : registry) {
+		registration.forceGenerator->getName();
 		registration.forceGenerator->updateForce(registration.particle, duration);
 	}
 }

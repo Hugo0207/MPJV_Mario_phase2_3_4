@@ -24,7 +24,6 @@ void Particle::integrate(float deltaTime) {
 
     // Mise � jour de la position et ajout � la trajectoire
     position = newPosition;
-    trajectory.push_back(position);
 
     // R�initialisation de la force accumul�e
     accumulatedForce = Vector(0, 0, 0);

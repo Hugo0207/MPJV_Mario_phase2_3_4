@@ -6,50 +6,34 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	int centerX = ofGetWidth() / 2;
-	int centerY = ofGetHeight() / 2;
 
 	world = new World();
-
 	// GUI
 	panel.setup();
-
-	SpawnParticle(Vector(ofGetWidth(), centerY + 10), Vector(-50, -50), ofColor(255, 0, 0));
-	SpawnParticle(Vector(0, centerY), Vector(30, -50), ofColor(0, 255, 0));
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 	float deltaTime = ofGetLastFrameTime() * 5;
 
+	world->player->handleInput();
+
 	world->applyWorldForces(deltaTime);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	for (auto& particle : world->particles) {
-		particle->draw();
-	}
 
+	world->drawParticle();
 	// Affichage de l'UI
 	panel.draw();
 }
 
+
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 
-}
-
-//--------------------------------------------------------------
-void ofApp::SpawnParticle(Vector initPosition, Vector initVelocity, ofColor color) {
-	Particle* newParticle = new Particle(
-		initPosition,
-		initVelocity,
-		20,
-		ofColor(color),
-		20
-	);
-	world->particles.push_back(newParticle);
 }
 
 //--------------------------------------------------------------

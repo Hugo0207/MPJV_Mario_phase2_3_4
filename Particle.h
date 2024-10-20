@@ -14,7 +14,6 @@ public:
     ofColor color;
     Vector accumulatedForce;
     Vector normalVector(Particle* p) const;
-    vector<Vector> trajectory;
 
 
 
@@ -27,12 +26,21 @@ public:
     void applyForce(const Vector& force);
 
     void draw();
+
     float getInverseMass() const;
 
     float getMass() const { return (inverseMass > 0.0f) ? 1.0f / inverseMass : 0.0f; }
     void setMass(float mass) { inverseMass = (mass > 0.0f) ? 1.0f / mass : 0.0f; }
 
     float distance(Particle* p);
+
+    void setVelocity(Vector velocity) {
+        this->velocity = velocity;
+    }
+
+    Vector getVelocity() {
+        return velocity;
+    }
 
     float get_radius() {
         return this->radius;

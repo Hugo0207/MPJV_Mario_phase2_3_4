@@ -8,9 +8,12 @@
 #include "RigidSpringGenerator.h"
 #include "SpringHooke1Generator.h"
 #include "Collision.h"
+#include "Player.h"
 
 class World
 {
+
+
 public:
 	// Constructors
 	World();
@@ -29,7 +32,7 @@ public:
 	/*SpringGenerator springGenerator;
 
 	// World 1 particle spring generator
-	SpringHooke1Generator springHooke1Generator;
+	/*SpringHooke1Generator springHooke1Generator;
 
 	// World Tige generator
 	RigidSpringGenerator rigidSpringGenerator;
@@ -45,6 +48,13 @@ public:
 
 	// Apply world forces on a given duration
 	void applyWorldForces(float duration);
+
+	void SpawnParticle(Vector initPosition, Vector initVelocity, ofColor color);
+
+	void drawParticle();
+
+	Player* player;
+
 };
 
 
