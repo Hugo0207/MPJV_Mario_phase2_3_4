@@ -36,4 +36,3 @@ public:
 	void updateForces(float duration);
 
 };
-

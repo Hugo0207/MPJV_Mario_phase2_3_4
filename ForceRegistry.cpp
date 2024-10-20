@@ -31,5 +31,3 @@ void ForceRegistry::updateForces(float duration) {
 		registration.forceGenerator->updateForce(registration.particle, duration);
 	}
 }
-
-
