@@ -10,30 +10,19 @@ void ofApp::setup() {
 	int centerY = ofGetHeight() / 2;	
 
 	world = new World();
-	collisionSystem = new Collision(1);
 
 	// GUI
 	panel.setup();
 
-	SpawnParticle(Vector(ofGetWidth(), centerY + 10), Vector(-50, 1), ofColor(255, 0, 0));
-	SpawnParticle(Vector(0, centerY), Vector(30, 0), ofColor(0, 255, 0));
+	SpawnParticle(Vector(ofGetWidth(), centerY + 10), Vector(-50, -50), ofColor(255, 0, 0));
+	SpawnParticle(Vector(0, centerY), Vector(30, -50), ofColor(0, 255, 0));
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 	float deltaTime = ofGetLastFrameTime() * 5;
 
-	for (auto& particle : world->particles)
-	{
-		particle->integrate(deltaTime);
-
-		// Stop les projectiles qui sont sortis de l'écran
-        if (particle->position.y > ofGetHeight()*1.3 || particle->position.x > ofGetWidth()*1.3 || particle->position.x < 0) {
-			particle->velocity = Vector(0, 0, 0);
-        }
-
-		collisionSystem->update(world->particles);
-    }
+	world->applyWorldForces(deltaTime);
 }
 
 //--------------------------------------------------------------

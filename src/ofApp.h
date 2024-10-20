@@ -30,7 +30,6 @@ public:
 private:
 
 	World* world;
-	Collision* collisionSystem;
 
 	// GUI specification
 	ofxPanel panel;

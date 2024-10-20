@@ -12,13 +12,13 @@ public:
 	World(float gravityMagnitude, float restitutionCoeff);
 
 	// World force registry
-	ForceRegistry* forceRegistry;
+	ForceRegistry forceRegistry;
 
 	// World gravity generator
-	GravityGenerator* gravityGenerator;
+	GravityGenerator gravityGenerator;
 
 	// World collision system
-	Collision* collisionSystem;
+	Collision collisionSystem;
 
 	// Currently active particles
 	std::vector<Particle*> particles;

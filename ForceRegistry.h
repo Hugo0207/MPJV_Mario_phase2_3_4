@@ -6,13 +6,13 @@ class ForceRegistry
 {
 
 	// Structure coupling a particle and a force generator
-	struct ParticleForceRegistration {
+	struct ForceRegistration {
 		Particle* particle;
 		ForceGenerator* forceGenerator;
 	};
 
 	// Vector type storing every particle force registration
-	typedef vector<ParticleForceRegistration> Registry;
+	typedef vector<ForceRegistration> Registry;
 
 protected:
 	// Vector storing every particle force registration

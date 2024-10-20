@@ -1,6 +1,6 @@
 #include "Collision.h"
 
-Collision::Collision(float restitutionCoeff, Vector* gravity) {
+Collision::Collision(float restitutionCoeff, Vector gravity) {
 	if (restitutionCoeff >= 0 && restitutionCoeff <= 1)
 	{
 		this->restitutionCoeff = restitutionCoeff;
@@ -59,7 +59,7 @@ bool Collision::detect(Particle* pA, Particle* pB) {
 bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 {
 	Vector normalVector = pA->normalVector(pB);
-	Vector gravityProjectionToNormal = ((*gravity) * deltaTime).projectTo(normalVector);
+	Vector gravityProjectionToNormal = (gravity * deltaTime).projectTo(normalVector);
 	Vector p1VelocityProjectionToNormal = pA->velocity.projectTo(normalVector);
 	Vector p2VelocityProjectionToNormal = pB->velocity.projectTo(normalVector);
 
@@ -71,7 +71,7 @@ bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 
 
 // Sépare les deux particules après la collision
-float Collision::proportionalDetach(Particle* pA, Particle* pB) {
+void Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
 
 	float separationMagnitude = 0;
@@ -83,8 +83,8 @@ float Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	 
 	Vector normalVector = pA->normalVector(pB);
 
-	Vector posA = pA->position - normalVector * proportionalDetach(pA, pB);
-	Vector posB = pB->position + normalVector * proportionalDetach(pB, pA);
+	Vector posA = pA->position - normalVector * separationMagnitude;
+	Vector posB = pB->position + normalVector * separationMagnitude;
 
 
 	pA->position = posA;

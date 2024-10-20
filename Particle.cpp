@@ -2,8 +2,8 @@
 #include <ofMain.h>
 
 // Constructeur
-Particle::Particle(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius)
-	: position(initPosition), velocity(initVelocity), inverseMass(inverseMass), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
+Particle::Particle(Vector initPosition, Vector initVelocity, float mass, ofColor color, float radius)
+	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
 
 // Destructeur
 Particle::~Particle() {}
