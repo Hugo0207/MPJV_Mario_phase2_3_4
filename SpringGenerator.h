@@ -13,6 +13,5 @@ public:
     SpringGenerator(Particle* otherParticle, float k, float restLength);
     void updateForce(Particle* particle, float duration) override;
 
-    void getName() override;
 };
 

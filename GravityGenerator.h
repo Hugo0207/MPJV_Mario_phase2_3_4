@@ -15,8 +15,6 @@ public:
 	// Add gravity to the selected particle resulting force
 	virtual void updateForce(Particle* particle, float duration);
 
-	void getName() override {
-		//cout << "gravite" << endl;
-	};
+	
 };
 

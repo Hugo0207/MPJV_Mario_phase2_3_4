@@ -42,8 +42,8 @@ void World::applyWorldForces(float duration)
 			{
 				int indice = (i + j) % particles.size();
 
-				ForceGenerator* springGenerator = new SpringGenerator(particles[i], 0.9, 1);
-				ForceGenerator* springGeneratorPlayer = new SpringGenerator(particles[indice], 0.9, 1);
+				ForceGenerator* springGenerator = new SpringGenerator(particles[i], 0.8, 10);
+				ForceGenerator* springGeneratorPlayer = new SpringGenerator(particles[indice], 0.8, 10);
 
 				forceRegistry.add(particles[indice], springGenerator);
 				forceRegistry.add(particles[i], springGeneratorPlayer);

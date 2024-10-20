@@ -22,5 +22,3 @@ void SpringGenerator::updateForce(Particle* particle, float duration) {
     other->applyForce(springForce * -1);  // Force égale et opposée
 }
 
-void SpringGenerator::getName() {
-};
