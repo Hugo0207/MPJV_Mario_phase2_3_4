@@ -1,7 +1,9 @@
 #include "Player.h"
 
 Player::Player(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius)
-    : Particle(initPosition, initVelocity, inverseMass, color, radius) {}
+    : Particle(initPosition, initVelocity, inverseMass, color, radius)  {
+    separate = false;
+}
 
 void Player::handleInput() {
     if (ofGetKeyPressed(OF_KEY_LEFT)) {
@@ -16,5 +18,9 @@ void Player::handleInput() {
     if (ofGetKeyPressed(OF_KEY_DOWN)) {
         setVelocity(getVelocity() + Vector(0, 1, 0));
     }
+    if (ofGetKeyPressed(static_cast<int>('A')) || ofGetKeyPressed(static_cast<int>('a'))) {
+        separate = !separate;
+    }
+ 
 }
 

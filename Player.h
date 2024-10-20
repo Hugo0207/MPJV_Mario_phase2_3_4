@@ -10,4 +10,6 @@ public:
     void handleInput();
 };
 
+bool separate;
+
 #endif // PLAYER_H
