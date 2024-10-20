@@ -3,7 +3,7 @@
 
 // Constructeur
 Particle::Particle(Vector initPosition, Vector initVelocity, float mass, ofColor color, float radius)
-    : position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
+	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
 
 // Destructeur
 Particle::~Particle() {}

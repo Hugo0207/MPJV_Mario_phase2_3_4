@@ -5,7 +5,7 @@ World::World() : forceRegistry(ForceRegistry()), gravityGenerator(GravityGenerat
 World::World(float gravityMagnitude, float restitutionCoeff) :
 	forceRegistry(ForceRegistry()),
 	gravityGenerator(GravityGenerator(gravityMagnitude)),
-	frictionGenerator(FrictionGenerator(0.5)),
+  frictionGenerator(FrictionGenerator(0.5)),
 	/*springGenerator(),
 	rigidSpringGenerator(), 
 	elasticSpringGenerator(), 
@@ -27,7 +27,7 @@ void World::applyWorldForces(float duration)
 	{
 		particle->integrate(duration);
 
-		// Stop les projectiles qui sont sortis de l'écran
+		// Stop les projectiles qui sont sortis de l'Ã©cran
 		if (particle->position.y > ofGetHeight() * 1.3 || particle->position.x > ofGetWidth() * 1.3 || particle->position.x < 0) {
 			particle->velocity = Vector(0, 0, 0);
 		}

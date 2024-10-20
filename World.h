@@ -21,7 +21,7 @@ public:
 
 	// World gravity generator
 	GravityGenerator gravityGenerator;
-
+  
 	// World friction generator
 	FrictionGenerator frictionGenerator;
 
