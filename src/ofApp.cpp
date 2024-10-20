@@ -16,9 +16,17 @@ void ofApp::setup() {
 void ofApp::update() {
 	float deltaTime = ofGetLastFrameTime() * 5;
 
-	world->player->handleInput();
 
 	world->applyWorldForces(deltaTime);
+
+	if (ofGetKeyPressed(static_cast<int>('A')) || ofGetKeyPressed(static_cast<int>('a'))) {
+		world->separate = !world->separate;
+	}
+
+	if (ofGetKeyPressed(static_cast<int>('D')) || ofGetKeyPressed(static_cast<int>('d'))) {
+		world->SpawnParticle(Vector(0, 0), Vector(0, 0));
+
+	}
 }
 
 //--------------------------------------------------------------

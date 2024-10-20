@@ -1,9 +1,30 @@
 ﻿#include "Particle.h"
 #include <ofMain.h>
+#include <random>
 
 // Constructeur
-Particle::Particle(Vector initPosition, Vector initVelocity, float mass, ofColor color, float radius)
-	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), color(color), accumulatedForce(0, 0, 0) {}
+Particle::Particle(Vector initPosition, Vector initVelocity, float mass, float radius)
+	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), accumulatedForce(0, 0, 0) {
+    
+    std::random_device rd;  // Source d'entropie
+    std::mt19937 gen(rd()); // Générateur de nombres pseudo-aléatoires
+
+    // Distribution uniforme entre 1 et 10
+    std::uniform_int_distribution<> distr(1, 10);
+
+    // Tirer un nombre au hasard
+    int randomNumber = distr(gen);
+
+    if (randomNumber <= 3) {
+        player = true;
+        color = ofColor(0, 255, 0);
+    }
+    else 
+    {
+        player = false;
+        color = ofColor(255, 0, 0);
+    }
+}
 
 // Destructeur
 Particle::~Particle() {}
@@ -59,3 +80,40 @@ Vector Particle::normalVector(Particle* p) const
 {
     return (p->position - this->position) / (p->position - this->position).norm();
 }
+
+void Particle::handleInput() {
+    if (player)
+    {
+        if (ofGetKeyPressed(OF_KEY_LEFT)) {
+            setVelocity(getVelocity() + Vector(-1, 0, 0));
+        }
+        if (ofGetKeyPressed(OF_KEY_RIGHT)) {
+            setVelocity(getVelocity() + Vector(1, 0, 0));
+        }
+        if (ofGetKeyPressed(OF_KEY_UP)) {
+            setVelocity(getVelocity() + Vector(0, -2, 0));
+        }
+        if (ofGetKeyPressed(OF_KEY_DOWN)) {
+            setVelocity(getVelocity() + Vector(0, 1, 0));
+        }
+    }
+}
+
+/*
+    void Particle::handleInput() {
+        if (player)
+        {
+            if (ofGetKeyPressed(OF_KEY_LEFT)) {
+                accumulatedForce += Vector(-1, 0, 0);
+            }
+            if (ofGetKeyPressed(OF_KEY_RIGHT)) {
+                accumulatedForce += Vector(1, 0, 0);
+            }
+            if (ofGetKeyPressed(OF_KEY_UP)) {
+                accumulatedForce += Vector(0, -2, 0);
+            }
+            if (ofGetKeyPressed(OF_KEY_DOWN)) {
+                accumulatedForce += Vector(0, 1, 0);
+            }
+        }
+    }*/

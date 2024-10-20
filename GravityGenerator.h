@@ -16,7 +16,7 @@ public:
 	virtual void updateForce(Particle* particle, float duration);
 
 	void getName() override {
-		cout << "gravite" << endl;
+		//cout << "gravite" << endl;
 	};
 };
 

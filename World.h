@@ -8,7 +8,6 @@
 #include "RigidSpringGenerator.h"
 #include "SpringHooke1Generator.h"
 #include "Collision.h"
-#include "Player.h"
 
 class World
 {
@@ -49,12 +48,13 @@ public:
 	// Apply world forces on a given duration
 	void applyWorldForces(float duration);
 
-	void SpawnParticle(Vector initPosition, Vector initVelocity, ofColor color);
+	void SpawnParticle(Vector initPosition, Vector initVelocity);
 
 	void drawParticle();
 
-	Player* player;
+	bool separate;
 
+	int nbParticle;
 };
 
 

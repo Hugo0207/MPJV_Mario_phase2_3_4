@@ -18,12 +18,10 @@ Collision::Collision(float restitutionCoeff, Vector gravity) {
 void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 	for (auto p1 = particles.begin(); p1 != particles.end(); p1++)
 	{
-
 		for (auto p2 = p1 + 1; p2 != particles.end(); p2++)
 		{
 			if (detect(*p1, *p2))
 			{
-				Vector impact = impactPoint(*p1, *p2);
 
 				// On rÃ©sout la collision ssi elle n'est pas dÃ©tectÃ©e au repos
 				if (!isRestContact(*p1, *p2, deltaTime)) {

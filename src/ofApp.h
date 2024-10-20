@@ -5,7 +5,6 @@
 #include "..\Collision.h"
 #include "..\World.h"
 #include "ofxGui.h"
-#include "..\Player.h"
 
 
 class ofApp : public ofBaseApp {

@@ -14,12 +14,12 @@ public:
     ofColor color;
     Vector accumulatedForce;
     Vector normalVector(Particle* p) const;
-
+    bool player;
 
 
 
 public:
-    Particle(Vector initPosition, Vector initVelocity, float inverseMass, ofColor color, float radius);
+    Particle(Vector initPosition, Vector initVelocity, float inverseMass, float radius);
     ~Particle();
 
     void integrate(float deltaTime);
@@ -51,6 +51,9 @@ public:
     void setPosition(Vector newPos) {
         position = newPos;
     }
+
+    void handleInput();
+
 };
 
 #endif // PARTICLE_H

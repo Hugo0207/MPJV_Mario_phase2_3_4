@@ -15,7 +15,7 @@ void SpringGenerator::updateForce(Particle* particle, float duration) {
 
     // Calculer la force de Hooke, magnitude F = -k * deltaX où deltaX le déplacement par rapport à la longueur d'équilibre du ressort
     float forceMagnitude = springConstant * (restLength - length);
-    Vector springForce = displacement.normalize() * -forceMagnitude; // Force mise sous forme de vecteur, normalize est un vecteur unitaire direction sans magnitude
+    Vector springForce = displacement.normalize() * forceMagnitude; // Force mise sous forme de vecteur, normalize est un vecteur unitaire direction sans magnitude
 
     // Appliquer la force sur les deux particles
     particle->applyForce(springForce);
