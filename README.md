@@ -7,15 +7,23 @@ Le moteur sera codé en C++, en utilisant le toolkit OpenFrameworks. Ce projet e
 - Tillian Dhume-Sonzogni
 - Hugo Girard
 
-## Phase 1
+## Phase 2
 
-Lors de la phase 1 du projet, l'objectif était de construire un moteur élémentaire de gestion de particules.
+Lors de la phase 2 du projet, l'objectif était d'améliorer le moteur construit lors de la phase 1, afin qu'il permette de gérer un amas de particules
 
-### Guide de compilation et d'exécution
+### Guide pour accéder au code source et exécuter le jeu
 
-- Installer **OpenFrameworks**.
-- Cloner ou placer le dossier source à cet endroit dans le dossier d'OpenFrameworks `C:\Votre\Chemin\Vers\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps`.
-- **Avec Visual Studio**, ouvrez le fichier `IntroOF.sln`. Appuyer sur le bouton d'exécution (CTRL + F5), le projet sera compilé puis exécuté.
+- Installez **OpenFrameworks**.
+- Clonez ou placer le dossier à cet endroit dans le dossier d'OpenFrameworks `C:\Votre\Chemin\Vers\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps`.
+- Avec **Visual Studio**, ouvrez la solution `IntroOF.sln` présente dans le dossier afin d'accéder au code source.
+- Sans **Visual Studio**, le code source se trouve à la racine du dossier et dans le sous-dossier `src`.
+- Pour exécuter le projet, lancez `C:\Votre\Chemin\Vers\Le\Dossier\Source\bin\IntroOF_debug.exe`.
+
+### Commandes
+
+- Déplacements : `UP ARROW, DOWN ARROW, RIGHT ARROW, LEFT ARROW`.
+- Séparation : bouton UI.
+- Ajout d'une nouvelle particule : bouton UI.
 
 ## Liens utiles
 

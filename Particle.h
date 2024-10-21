@@ -13,6 +13,7 @@ public:
     Vector velocity;
     ofColor color;
     Vector accumulatedForce;
+    bool groundTouch;
     Vector normalVector(Particle* p) const;
     bool player;
 

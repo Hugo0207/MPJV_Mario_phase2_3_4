@@ -28,6 +28,11 @@ void World::applyWorldForces(float duration)
 	// Apply gravity to every world particle
 	for (auto& particle : particles) {
 		forceRegistry.add(particle, &gravityGenerator);
+
+		if (particle->groundTouch)
+		{
+			forceRegistry.add(particle, &frictionGenerator);
+		}
 	}
 
 	if (!separate)

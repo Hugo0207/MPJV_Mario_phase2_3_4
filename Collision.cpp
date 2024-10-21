@@ -35,7 +35,12 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 	{
 		if (groundCollisionDetect(particle))
 		{
+			particle->groundTouch = true;
 			groundCollisionResolve(particle);
+		}
+		else
+		{
+			particle->groundTouch = false;
 		}
 	}
 }

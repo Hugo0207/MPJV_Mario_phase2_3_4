@@ -9,6 +9,7 @@ private:
 	float restitutionCoeff;
 	Vector gravity;
 
+
 public:
 
 	Collision(float restitutionCoeff, Vector gravity);

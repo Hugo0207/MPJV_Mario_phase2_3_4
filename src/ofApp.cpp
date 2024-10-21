@@ -8,8 +8,22 @@
 void ofApp::setup() {
 
 	world = new World();
+
 	// GUI
 	panel.setup();
+	spawnButton.addListener(this, &ofApp::SpawnBlobParticle);
+	splitButton.addListener(this, &ofApp::SplitBlob);
+	panel.add(blobGroup.setup("Blob"));
+	blobGroup.add(blobParticlesNumberLabel.setup("Number of particles", world->separate ? "1" : std::to_string(world->nbParticle)));
+	blobGroup.add(blobSplitLabel.setup("Split?", world->separate ? "Yes" : "No"));
+	panel.add(spawnButton.setup("Add particle"));
+	panel.add(splitButton.setup("Split"));
+	panel.add(playerCommandsGroup.setup("Commands"));
+	playerCommandsGroup.add(upCommand.setup("Up", "UP ARROW"));
+	playerCommandsGroup.add(downCommand.setup("Down", "DOWN ARROW"));
+	playerCommandsGroup.add(rightCommand.setup("Right", "RIGHT ARROW"));
+	playerCommandsGroup.add(leftCommand.setup("Left", "LEFT ARROW"));
+
 }
 
 //--------------------------------------------------------------
@@ -19,25 +33,31 @@ void ofApp::update() {
 
 	world->applyWorldForces(deltaTime);
 
-	if (ofGetKeyPressed(static_cast<int>('A')) || ofGetKeyPressed(static_cast<int>('a'))) {
-		world->separate = !world->separate;
-	}
-
-	if (ofGetKeyPressed(static_cast<int>('D')) || ofGetKeyPressed(static_cast<int>('d'))) {
-		world->SpawnParticle(Vector(0, 0), Vector(0, 0));
-
-	}
+	blobParticlesNumberLabel.setup("Number of particles", world->separate ? "1" : std::to_string(world->nbParticle));
+	blobSplitLabel.setup("Split?", world->separate ? "Yes" : "No");
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
 	world->drawParticle();
+
 	// Affichage de l'UI
 	panel.draw();
 }
 
+// Spawn particle and link it to the blob
+void ofApp::SpawnBlobParticle()
+{
+	world->SpawnParticle(Vector(0, 0), Vector(0, 0));
+	world->nbParticle += 1;
+}
 
+// Split the blob
+void ofApp::SplitBlob()
+{
+	world->separate = !world->separate;
+}
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {

@@ -27,18 +27,6 @@ public:
 	// World friction generator
 	FrictionGenerator frictionGenerator;
 
-	// World spring generator
-	/*SpringGenerator springGenerator;
-
-	// World 1 particle spring generator
-	/*SpringHooke1Generator springHooke1Generator;
-
-	// World Tige generator
-	RigidSpringGenerator rigidSpringGenerator;
-
-	// World Elastic generator
-	ElasticSpringGenerator elasticSpringGenerator;*/
-
 	// World collision system
 	Collision collisionSystem;
 

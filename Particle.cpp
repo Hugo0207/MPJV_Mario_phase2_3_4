@@ -4,7 +4,7 @@
 
 // Constructeur
 Particle::Particle(Vector initPosition, Vector initVelocity, float mass, float radius)
-	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), accumulatedForce(0, 0, 0) {
+	: position(initPosition), velocity(initVelocity), inverseMass((mass > 0.0f) ? 1.0f / mass : 0.0f), radius(radius), accumulatedForce(0, 0, 0), groundTouch(false) {
     
     std::random_device rd;  // Source d'entropie
     std::mt19937 gen(rd()); // Générateur de nombres pseudo-aléatoires

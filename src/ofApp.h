@@ -25,6 +25,8 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+	void SpawnBlobParticle();
+	void SplitBlob();
 
 private:
 
@@ -32,5 +34,15 @@ private:
 
 	// GUI specification
 	ofxPanel panel;
+	ofxGuiGroup blobGroup;
+	ofxLabel blobParticlesNumberLabel;
+	ofxLabel blobSplitLabel;
+	ofxGuiGroup playerCommandsGroup;
+	ofxLabel upCommand;
+	ofxLabel downCommand;
+	ofxLabel leftCommand;
+	ofxLabel rightCommand;
+	ofxButton spawnButton;
+	ofxButton splitButton;
 
 };
