@@ -17,7 +17,7 @@ void ofApp::setup() {
 	blobGroup.add(blobParticlesNumberLabel.setup("Number of particles", world->separate ? "1" : std::to_string(world->nbParticle)));
 	blobGroup.add(blobSplitLabel.setup("Split?", world->separate ? "Yes" : "No"));
 	panel.add(spawnButton.setup("Add particle"));
-	panel.add(splitButton.setup("Split"));
+	panel.add(splitButton.setup("Split/Merge"));
 	panel.add(playerCommandsGroup.setup("Commands"));
 	playerCommandsGroup.add(upCommand.setup("Up", "UP ARROW"));
 	playerCommandsGroup.add(downCommand.setup("Down", "DOWN ARROW"));
