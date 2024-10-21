@@ -53,10 +53,6 @@ void World::applyWorldForces(float duration)
 	{
 		particle->integrate(duration);
 
-		// Stop les projectiles qui sont sortis de l'écran
-		if (particle->position.y > ofGetHeight() * 1.3 || particle->position.x > ofGetWidth() * 1.3 || particle->position.x < 0) {
-			particle->velocity = Vector(0, 0, 0);
-		}
 	}
 
 	collisionSystem.update(particles, duration);

@@ -26,5 +26,8 @@ public:
 
 	void resolve(Particle* pA, Particle* pB);
 
+	bool groundCollisionDetect(Particle* particle);
+
+	void groundCollisionResolve(Particle* particle);
 
 };

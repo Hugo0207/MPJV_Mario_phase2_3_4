@@ -79,6 +79,21 @@
     <ClCompile Include="Player.cpp">
       <Filter>src\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="ElasticSpringGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="FrictionGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidSpringGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringHooke1Generator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -187,6 +202,21 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>src\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ElasticSpringGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="FrictionGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidSpringGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringHooke1Generator.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

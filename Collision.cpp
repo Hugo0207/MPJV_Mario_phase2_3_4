@@ -32,6 +32,14 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 			}
 		}
 	}
+
+	for (auto& particle : particles) 
+	{
+		if (groundCollisionDetect(particle))
+		{
+			groundCollisionResolve(particle);
+		}
+	}
 }
 
 // Point d'impact entre deux particules entrant en collision
@@ -106,3 +114,26 @@ void Collision::resolve(Particle* pA, Particle* pB) {
 	pA->velocity = pA->velocity - ((normalVector * impulsionMagnitude) / pA->getMass());
 	pB->velocity = pB->velocity + ((normalVector * impulsionMagnitude) / pB->getMass());
 }
+
+bool Collision::groundCollisionDetect(Particle* particle)
+{
+	return (particle->position.y > ofGetHeight() - particle->get_radius());
+}
+
+void Collision::groundCollisionResolve(Particle* particle)
+{
+	Vector normalVector = Vector(0, 1, 0);
+
+	float penetration = particle->position.y - ofGetHeight() + particle->get_radius();
+
+	Vector posA = particle->position - normalVector * penetration;
+
+	particle->position = posA;
+
+	float impulsionMagnitude = ((1.3) * particle->velocity.dotProduct(normalVector)) / particle->getInverseMass();
+
+	particle->velocity = particle->velocity - ((normalVector * impulsionMagnitude) / particle->getMass());
+}
+
+
+
