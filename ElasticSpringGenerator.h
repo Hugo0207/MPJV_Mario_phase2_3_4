@@ -2,7 +2,7 @@
 #include "ForceGenerator.h"
 #include "Vector.h"
 
-class ElasticSpringGenerator : public ForceGenerator{
+class ElasticSpringGenerator : public ForceGenerator {
 public:
     Particle* otherParticle;
     float k;

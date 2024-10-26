@@ -1,4 +1,4 @@
-#include "Collision.h"
+﻿#include "Collision.h"
 
 Collision::Collision(float restitutionCoeff, Vector gravity) {
 	if (restitutionCoeff >= 0 && restitutionCoeff <= 1)
@@ -31,7 +31,7 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 		}
 	}
 
-	for (auto& particle : particles) 
+	for (auto& particle : particles)
 	{
 		if (groundCollisionDetect(particle))
 		{

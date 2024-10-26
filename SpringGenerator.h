@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "ForceGenerator.h"
 #include "Vector.h"
 
-class SpringGenerator : public ForceGenerator{
+class SpringGenerator : public ForceGenerator {
 public:
-    Particle* other;  // La deuxième particule
+    Particle* other;  // La deuxiï¿½me particule
     float springConstant; // Constante de ressort
-    float restLength;  // Longueur à l'équilibre du ressort
+    float restLength;  // Longueur ï¿½ l'ï¿½quilibre du ressort
 
 public:
     SpringGenerator();

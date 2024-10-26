@@ -7,7 +7,7 @@ World::World() : forceRegistry(ForceRegistry()), gravityGenerator(GravityGenerat
 	int centerY = ofGetHeight();
 	nbParticle = 10;
 
-	for (int i = 0; i<nbParticle; i++)
+	for (int i = 0; i < nbParticle; i++)
 	{
 		SpawnParticle(Vector(150 + i, centerY), Vector(0, 0));
 	}
@@ -37,8 +37,8 @@ void World::applyWorldForces(float duration)
 
 	if (!separate)
 	{
-		for (int i = 0; i < particles.size(); i++ ) {
-			for (int j =0; j<4; j++)
+		for (int i = 0; i < particles.size(); i++) {
+			for (int j = 0; j < 4; j++)
 			{
 				int indice = (i + j) % particles.size();
 
@@ -55,7 +55,7 @@ void World::applyWorldForces(float duration)
 	// Apply every registry forces to their given particle
 	forceRegistry.updateForces(duration);
 
-	
+
 
 	for (auto& particle : particles)
 	{

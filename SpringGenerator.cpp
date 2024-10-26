@@ -1,4 +1,4 @@
-#include "SpringGenerator.h"
+ï»¿#include "SpringGenerator.h"
 
 SpringGenerator::SpringGenerator(Particle* otherParticle, float k, float restLength) : other(otherParticle), springConstant(k), restLength(restLength) {
 }
@@ -13,12 +13,12 @@ void SpringGenerator::updateForce(Particle* particle, float duration) {
     Vector displacement = particle->position - other->position;
     float length = displacement.norm();
 
-    // Calculer la force de Hooke, magnitude F = -k * deltaX où deltaX le déplacement par rapport à la longueur d'équilibre du ressort
+    // Calculer la force de Hooke, magnitude F = -k * deltaX oï¿½ deltaX le dï¿½placement par rapport ï¿½ la longueur d'ï¿½quilibre du ressort
     float forceMagnitude = springConstant * (restLength - length);
     Vector springForce = displacement.normalize() * forceMagnitude; // Force mise sous forme de vecteur, normalize est un vecteur unitaire direction sans magnitude
 
     // Appliquer la force sur les deux particles
     particle->applyForce(springForce);
-    other->applyForce(springForce * -1);  // Force égale et opposée
+    other->applyForce(springForce * -1);  // Force ï¿½gale et opposï¿½e
 }
 
