@@ -37,10 +37,8 @@ Quaternion* Quaternion::negate() const
 // Multiplication de deux quaternions
 Quaternion* Quaternion::multiply(Quaternion* other) const
 {
-	// ???????????? PROBLEM
-	float resW = w * other->w;
-	float dotProduct = (xyzVector * (-1)).dotProduct(other->xyzVector) - resW;
-	Vector resXYZvector = ((other->xyzVector * w) + (xyzVector * other->w) + (xyzVector.crossProduct(other->xyzVector))) * dotProduct;
+	float resW = w * other->w - xyzVector.dotProduct(other->xyzVector);
+	Vector resXYZvector = (other->xyzVector * w) + (xyzVector * other->w) + (xyzVector.crossProduct(other->xyzVector));
 
 	return createQuat(resW, resXYZvector);
 }
@@ -49,8 +47,6 @@ Quaternion* Quaternion::multiply(Quaternion* other) const
 Vector Quaternion::applyRotation(Vector* target) const
 {
 	Quaternion* targetQuaternion = createQuat(0, *target);
-	cout << targetQuaternion->norm() << endl;
-
 	Quaternion* resultQuaternion = (this->multiply(targetQuaternion))->multiply(this->inverse());
 
 	return resultQuaternion->xyzVector;

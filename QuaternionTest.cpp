@@ -44,8 +44,8 @@ void QuaternionTest::testMultiply()
     Quaternion* q2 = Quaternion::createQuat(2, Vector(3,4,5));
     Quaternion* q3 = q1->multiply(q2);
 
-    assert(eq(q3->w, 2.f));
-    assert(q3->xyzVector == Vector(-240.f,-480.f,-480.f));
+    assert(eq(q3->w, -36.f));
+    assert(q3->xyzVector == Vector(6.f,12.f,12.f));
 }
 
 void QuaternionTest::testApplyRotation()
@@ -107,4 +107,6 @@ void QuaternionTest::testConstructors()
 
     assert(eq(q1.w, 0.f));
     assert(eq(q2.w, 0.5f) && q2.xyzVector == Vector(0.5f, 0.5f, 0.5f));
+    assert(eq(1.f, q2.norm()));
+    assert(eq(1.f, q1.norm()));
 }
