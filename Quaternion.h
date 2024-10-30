@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector.h"
+#include "QuaternionTest.h"
 
 class Quaternion
 {
@@ -8,11 +9,14 @@ private:
 	Vector xyzVector;
 
 	// Constructeur utilisé pour les opérations intra-classe
-	Quaternion(float w, Vector xyzVector);
+	static Quaternion* createQuat(float w, Vector xyzVector);
 
 public:
 	// Constructeur public
 	Quaternion(float rotationAngle, Vector rotationAxis); // L'angle de rotation est attendu en degrés
+
+	// Norme du quaternion
+	float norm() const;
 
 	// Inverse/Conjugué du quaternion, donne le même angle de rotation, mais avec une inversion du sens de rotation
 	Quaternion* inverse() const;
@@ -46,6 +50,8 @@ public:
 
 	// Permet de modifier l'axe de rotation représenté par le quaternion
 	void setRotationAxis(Vector axis);
+
+	friend class QuaternionTest;
 
 };
 

@@ -115,7 +115,10 @@ Vector& Vector::operator/=(float scalar) {
 }
 
 bool Vector::operator==(const Vector& vec) const {
-    return x == vec.x && y == vec.y && z == vec.z;
+    bool equalX = abs(x - vec.x) < 1e-7;
+    bool equalY = abs(y - vec.y) < 1e-7;
+    bool equalZ = abs(z - vec.z) < 1e-7;
+    return equalX && equalY && equalZ;
 }
 
 bool Vector::operator!=(const Vector& vec) const {

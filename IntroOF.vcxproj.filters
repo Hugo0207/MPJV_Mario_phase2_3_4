@@ -76,6 +76,10 @@
     <ClCompile Include="Particle.cpp">
       <Filter>src\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="QuaternionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -181,6 +185,12 @@
     </ClInclude>
     <ClInclude Include="Particle.h">
       <Filter>src\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="QuaternionTest.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

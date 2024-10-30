@@ -111,6 +111,8 @@
     <ClCompile Include="FrictionGenerator.cpp" />
     <ClCompile Include="GravityGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="RigidSpringGenerator.cpp" />
     <ClCompile Include="SpringGenerator.cpp" />
     <ClCompile Include="SpringHooke1Generator.cpp" />
@@ -138,6 +140,8 @@
     <ClInclude Include="FrictionGenerator.h" />
     <ClInclude Include="GravityGenerator.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="QuaternionTest.h" />
     <ClInclude Include="RigidSpringGenerator.h" />
     <ClInclude Include="SpringGenerator.h" />
     <ClInclude Include="SpringHooke1Generator.h" />
