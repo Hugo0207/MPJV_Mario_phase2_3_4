@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World() : forceRegistry(ForceRegistry()), gravityGenerator(GravityGenerator(9.81)), frictionGenerator(FrictionGenerator(0.5)), collisionSystem(Collision(0.8, gravityGenerator.gravity))
+World::World() : forceRegistry(ForceRegistry()), gravityGenerator(GravityGenerator(9.81)), frictionGenerator(FrictionGenerator(0.9)), collisionSystem(Collision(0.8, gravityGenerator.gravity))
 {
 
 	separate = false;
@@ -42,8 +42,8 @@ void World::applyWorldForces(float duration)
 			{
 				int indice = (i + j) % particles.size();
 
-				ForceGenerator* springGenerator = new SpringGenerator(particles[i], 0.8, 10);
-				ForceGenerator* springGeneratorPlayer = new SpringGenerator(particles[indice], 0.8, 10);
+				ForceGenerator* springGenerator = new SpringGenerator(particles[i], 0.8, 5);
+				ForceGenerator* springGeneratorPlayer = new SpringGenerator(particles[indice], 0.8, 5);
 
 				forceRegistry.add(particles[indice], springGenerator);
 				forceRegistry.add(particles[i], springGeneratorPlayer);

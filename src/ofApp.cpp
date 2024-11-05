@@ -2,6 +2,9 @@
 #include "..\Particle.h"
 #include "..\Vector.h"
 #include "..\Collision.h"
+#include "../Matrice.h"
+#include "../TestMatrice.h"
+
 #include <cmath>
 
 //--------------------------------------------------------------
@@ -10,7 +13,7 @@ void ofApp::setup() {
 	world = new World();
 
 	// GUI
-	panel.setup();
+	/*panel.setup();
 	spawnButton.addListener(this, &ofApp::SpawnBlobParticle);
 	splitButton.addListener(this, &ofApp::SplitBlob);
 	panel.add(blobGroup.setup("Blob"));
@@ -22,35 +25,39 @@ void ofApp::setup() {
 	playerCommandsGroup.add(upCommand.setup("Up", "UP ARROW"));
 	playerCommandsGroup.add(downCommand.setup("Down", "DOWN ARROW"));
 	playerCommandsGroup.add(rightCommand.setup("Right", "RIGHT ARROW"));
-	playerCommandsGroup.add(leftCommand.setup("Left", "LEFT ARROW"));
+	playerCommandsGroup.add(leftCommand.setup("Left", "LEFT ARROW"));*/
 
+	Matrice<4>* m = new Matrice<4>{ 1.0f, 2.0f };
+	cout << *m << endl;;
+
+	TestMatrice().RunTest();
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	float deltaTime = ofGetLastFrameTime() * 5;
+	/*float deltaTime = ofGetLastFrameTime() * 5;
 
 
 	world->applyWorldForces(deltaTime);
 
 	blobParticlesNumberLabel.setup("Number of particles", world->separate ? "1" : std::to_string(world->nbParticle));
-	blobSplitLabel.setup("Split?", world->separate ? "Yes" : "No");
+	blobSplitLabel.setup("Split?", world->separate ? "Yes" : "No");*/
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
 
-	world->drawParticle();
+	//world->drawParticle();
 
-	// Affichage de l'UI
-	panel.draw();
+	//// Affichage de l'UI
+	//panel.draw();
 }
 
 // Spawn particle and link it to the blob
 void ofApp::SpawnBlobParticle()
 {
-	world->SpawnParticle(Vector(0, 0), Vector(0, 0));
-	world->nbParticle += 1;
+	//world->SpawnParticle(Vector(0, 0), Vector(0, 0));
+	//world->nbParticle += 1;
 }
 
 // Split the blob

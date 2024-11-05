@@ -56,10 +56,7 @@
       <Filter>src\Force\SpringGenerator</Filter>
     </ClCompile>
     <ClCompile Include="Vector.cpp">
-      <Filter>src\Vector</Filter>
-    </ClCompile>
-    <ClCompile Include="VectorTest.cpp">
-      <Filter>src\Vector</Filter>
+      <Filter>src\Operateur</Filter>
     </ClCompile>
     <ClCompile Include="ForceGenerator.cpp">
       <Filter>src\Force</Filter>
@@ -77,9 +74,17 @@
       <Filter>src\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Quaternion.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Operateur</Filter>
     </ClCompile>
-    <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="TestMatrice.cpp">
+      <Filter>src\TestOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="VectorTest.cpp">
+      <Filter>src\TestOperator</Filter>
+    </ClCompile>
+    <ClCompile Include="QuaternionTest.cpp">
+      <Filter>src\TestOperator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -94,9 +99,6 @@
     <Filter Include="addons\ofxGui\src">
       <UniqueIdentifier>{1A51B104--803-E-40-67-B-D9C-6188C60F57D2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Vector">
-      <UniqueIdentifier>{a73e6525-f0b8-44c4-ba86-e58995728958}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Force">
       <UniqueIdentifier>{a30c177f-80c6-496f-acce-9bbbd666f48a}</UniqueIdentifier>
     </Filter>
@@ -105,6 +107,12 @@
     </Filter>
     <Filter Include="src\Force\SpringGenerator">
       <UniqueIdentifier>{a7f203ae-1e18-4cb3-abb7-4034df0cac73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Operateur">
+      <UniqueIdentifier>{a73e6525-f0b8-44c4-ba86-e58995728958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\TestOperator">
+      <UniqueIdentifier>{758ff43c-42d6-4aaf-9db0-22f0acfc0533}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +174,7 @@
       <Filter>src\Force\SpringGenerator</Filter>
     </ClInclude>
     <ClInclude Include="Vector.h">
-      <Filter>src\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorTest.h">
-      <Filter>src\Vector</Filter>
+      <Filter>src\Operateur</Filter>
     </ClInclude>
     <ClInclude Include="GravityGenerator.h">
       <Filter>src\Force</Filter>
@@ -187,10 +192,19 @@
       <Filter>src\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Quaternion.h">
-      <Filter>src</Filter>
+      <Filter>src\Operateur</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrice.h">
+      <Filter>src\Operateur</Filter>
+    </ClInclude>
+    <ClInclude Include="TestMatrice.h">
+      <Filter>src\TestOperator</Filter>
+    </ClInclude>
+    <ClInclude Include="VectorTest.h">
+      <Filter>src\TestOperator</Filter>
     </ClInclude>
     <ClInclude Include="QuaternionTest.h">
-      <Filter>src</Filter>
+      <Filter>src\TestOperator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

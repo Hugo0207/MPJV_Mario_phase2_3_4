@@ -118,6 +118,7 @@
     <ClCompile Include="SpringHooke1Generator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="TestMatrice.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="ForceRegistry.h" />
     <ClInclude Include="FrictionGenerator.h" />
     <ClInclude Include="GravityGenerator.h" />
+    <ClInclude Include="Matrice.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QuaternionTest.h" />
@@ -146,6 +148,7 @@
     <ClInclude Include="SpringGenerator.h" />
     <ClInclude Include="SpringHooke1Generator.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="TestMatrice.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="VectorTest.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h" />
