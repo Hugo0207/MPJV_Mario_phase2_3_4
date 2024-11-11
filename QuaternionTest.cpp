@@ -110,3 +110,19 @@ void QuaternionTest::testConstructors()
     assert(eq(1.f, q2.norm()));
     assert(eq(1.f, q1.norm()));
 }
+
+void QuaternionTest::testConvertToMatrix()
+{
+    Quaternion* q1 = Quaternion::createQuat(1, Vector(2, 3, 4));
+    Matrice<3> m = q1->convertToMatrix();
+
+    assert(eq(m.values[0][0], -49.f));
+    assert(eq(m.values[0][1], 20.f));
+    assert(eq(m.values[0][2], 20.f));
+    assert(eq(m.values[1][0], 4.f));
+    assert(eq(m.values[1][1], -39.f));
+    assert(eq(m.values[1][2], 28.f));
+    assert(eq(m.values[2][0], 22.f));
+    assert(eq(m.values[2][1], 20.f));
+    assert(eq(m.values[2][2], -25.f));
+}
