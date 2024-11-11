@@ -1,48 +1,33 @@
 #pragma once
-#include "Particle.h"
-#include "ForceRegistry.h"
-#include "GravityGenerator.h"
-#include "FrictionGenerator.h"
-#include "SpringGenerator.h"
-#include "ElasticSpringGenerator.h"
-#include "RigidSpringGenerator.h"
-#include "SpringHooke1Generator.h"
-#include "Collision.h"
+#include <vector>
+#include "CorpsRigide.h"
+#include "RigidBodyForceRegistry.h"
 
 class World
 {
-
+private:
+    std::vector<CorpsRigide*> rigidBodies;
+    RigidBodyForceRegistry forceRegistry;
+    float deltaTime;
 
 public:
-	// Constructors
-	World();
-	World(float gravityMagnitude, float restitutionCoeff);
+    World(float deltaTime);
 
-	// World force registry
-	ForceRegistry forceRegistry;
+    // Gestion des corps rigides
+    void addRigidBody(CorpsRigide* rigidBody);
+    void removeRigidBody(CorpsRigide* rigidBody);
 
-	// World gravity generator
-	GravityGenerator gravityGenerator;
-  
-	// World friction generator
-	FrictionGenerator frictionGenerator;
+    // Gestion des forces
+    void addForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator* fg);
+    void removeForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator* fg);
 
-	// World collision system
-	Collision collisionSystem;
+    // Mise à jour de la simulation
+    void update();
 
-	// Currently active particles
-	std::vector<Particle*> particles;
+    // Accès aux corps rigides
+    const std::vector<CorpsRigide*>& getRigidBodies() const;
 
-	// Apply world forces on a given duration
-	void applyWorldForces(float duration);
-
-	void SpawnParticle(Vector initPosition, Vector initVelocity);
-
-	void drawParticle();
-
-	bool separate;
-
-	int nbParticle;
+	// Accesseurs
+	float getDeltaTime() const { return deltaTime; }
+	void setDeltaTime(float deltaTime) { this->deltaTime = deltaTime; }
 };
-
-

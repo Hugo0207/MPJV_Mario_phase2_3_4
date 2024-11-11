@@ -1,7 +1,8 @@
 #pragma once
 #include "Quaternion.h"
+#include <cassert>
 
-class QuaternionTest{
+class QuaternionTest {
 public:
     static void runTests();
 
@@ -11,10 +12,12 @@ private:
     static void testNegate();
     static void testMultiply();
     static void testApplyRotation();
-    static void testDifference();
+    //static void testDifference();
     static void testDotProduct();
     static void testExponentiation();
     static void testGetters();
     static void testSetters();
     static void testConstructors();
+    static void testConvertToMatrix();
 };
+

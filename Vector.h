@@ -52,8 +52,10 @@ public:
     Vector& operator-=(const Vector& vec);
     Vector& operator*=(float scalar);
     Vector& operator/=(float scalar);
+	Vector operator-() const;
     bool operator==(const Vector& vec) const;
     bool operator!=(const Vector& vec) const;
+
 
     // Conversion to glm types
     glm::vec2 toVec2() const { return glm::vec2(x, y); }
