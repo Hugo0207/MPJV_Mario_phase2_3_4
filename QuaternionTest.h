@@ -17,4 +17,5 @@ private:
     static void testGetters();
     static void testSetters();
     static void testConstructors();
+    static void testConvertToMatrix();
 };

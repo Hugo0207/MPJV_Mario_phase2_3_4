@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector.h"
 #include "QuaternionTest.h"
+#include "Matrice.h"
 
 class Quaternion
 {
@@ -50,6 +51,9 @@ public:
 
 	// Permet de modifier l'axe de rotation représenté par le quaternion
 	void setRotationAxis(Vector axis);
+
+	// Permet de convertir le quaternion en une matrice 3x3
+	Matrice<3> convertToMatrix() const;
 
 	friend class QuaternionTest;
 

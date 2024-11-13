@@ -4,6 +4,7 @@
 #include "..\Collision.h"
 #include "../Matrice.h"
 #include "../TestMatrice.h"
+#include "../QuaternionTest.h"
 
 #include <cmath>
 
@@ -30,6 +31,7 @@ void ofApp::setup() {
 	Matrice<4>* m = new Matrice<4>{ 1, 2, 3, 4, 2, 5, 4, 3, 3, 4, 5, 2, 4, 3, 2, 1 };
 
 
+	QuaternionTest::runTests();
 	TestMatrice().RunTest();
 }
 

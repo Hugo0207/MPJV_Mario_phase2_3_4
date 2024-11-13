@@ -98,3 +98,20 @@ void Quaternion::setRotationAxis(Vector newAxis)
 	float halfRotationAngleRad = (getRotationAngle() * PI / 180) / 2;
 	xyzVector = newAxis.normalize() * sin(halfRotationAngleRad);
 }
+
+// Permet de convertir le quaternion en une matrice 3x3
+Matrice<3> Quaternion::convertToMatrix() const
+{
+	float x = xyzVector.x;
+	float y = xyzVector.y;
+	float z = xyzVector.z;
+	float xx = pow(x, 2);
+	float yy = pow(y, 2);
+	float zz = pow(z, 2);
+
+	return Matrice<3>({
+		1-2*(yy + zz), 2*(x*y + z*w), 2*(x*z - y*w),
+		2*(x*y - z*w), 1-2*(xx + zz), 2*(y*z + x*w),
+		2*(x*z + y*w), 2*(y*z - x*w), 1-2*(xx + yy)
+		});
+}
