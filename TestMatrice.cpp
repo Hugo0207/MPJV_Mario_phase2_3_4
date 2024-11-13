@@ -13,7 +13,7 @@ void TestMatrice::RunTest()
 	TestDeterminant();
 	TestTranspose();
 	TestInverse();
-	std::cout << "Test des matrices passe avec succes" << std::endl;
+	std::cout << "Test of matrix pass with sucess" << std::endl;
 }
 
 void TestMatrice::TestConstructor()
@@ -101,8 +101,6 @@ void TestMatrice::TestMultiplication()
 	Matrice<4> D;
 
 	D = A * B;
-	std::cout << "D : " << D << std::endl;
-	std::cout << "C : " << C << std::endl;
 
 	assert(D == C);
 
@@ -135,9 +133,8 @@ void TestMatrice::TestDeterminant()
 	Matrice<4> A{ 2, 3, 1, 4, 1, 5, 7, 6, 4, 8, 9, 2, 3, 7, 5, 1 };
 	float det = A.determinant();
 
-	std::cout << "det : " << det << std::endl;
 
-	assert(det == -168);
+	assert(det == -247);
 
 }
 
@@ -153,5 +150,14 @@ void TestMatrice::TestTranspose()
 
 void TestMatrice::TestInverse()
 {
+	Matrice<4> A{ 1, 2, 3, 4, 2, 5, 4, 3, 3, 4, 5, 2, 4, 3, 2, 1 };
 
+	Matrice<4> Ainverse{ 1.0f / 10, -1.0f / 4, 0.0f, 7.0f / 20,
+						-1.0f / 4, 1.0f / 2, -1.0f / 4, 0.0f,
+						0.0f, -1.0f / 4, 1.0f / 2, -1.0f / 4,
+						7.0f / 20, 0.0f, -1.0f / 4, 1.0f / 10 };
+
+	Matrice<4> inverse = A.inverse();
+
+	assert(inverse == Ainverse);
 }

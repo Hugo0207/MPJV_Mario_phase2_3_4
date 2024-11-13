@@ -169,81 +169,99 @@ public :
 	}
 	
 	//get the determinant of a matrix
-	float determinant() const {
-		static_assert(N > 1, "La matrice doit être au moins 2x2 pour calculer un déterminant.");
+	float determinant() {
 
-		if constexpr (N == 2) {
-			// Calcul du déterminant pour une matrice 2x2
-			return values[0][0] * values[1][1] - values[0][1] * values[1][0];
+		if  (N == 1) return values[0][0];
+		if  (N == 2) return values[0][0] * values[1][1] - values[0][1] * values[1][0];
+
+		float det = 0;
+
+		for (size_t col = 0; col < N; col++)
+		{
+			float cofactor = (col % 2 == 0 ? 1 : -1) * values[0][col];
+
+			det += cofactor * getSubMatrix(0, col).determinant();
 		}
-		else if constexpr (N == 3) {
-			// Méthode de Sarrus pour une matrice 3x3
-			return values[0][0] * (values[1][1] * values[2][2] - values[1][2] * values[2][1])
-				- values[0][1] * (values[1][0] * values[2][2] - values[1][2] * values[2][0])
-				+ values[0][2] * (values[1][0] * values[2][1] - values[1][1] * values[2][0]);
-		}
-		else {
-			// Méthode par cofacteurs pour une matrice NxN (N > 3)
-			float det = 0.0f;
-			for (size_t j = 0; j < N; ++j) {
-				det += ((j % 2 == 0) ? 1 : -1) * values[0][j] * cofacteur(0, j).determinant();
-			}
-			return det;
-		}
+
+		return det;
 	}
+
+	
 
 	//create a matrix by transping an other
 	Matrice<N> transpose() const {
         Matrice<N> transposed;
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
-                transposed.values[j][i] = values[i][j];
+                transposed.values[j][i] = this->values[i][j];
             }
         }
         return transposed;
     }
 
 	//create a matrix by inversing an other
-	Matrice<N> inverse() const {
+	Matrice<N> inverse() {
 		float det = determinant();
 		if (det == 0) {
-			throw std::invalid_argument("Le determinant doit être positif");
+			throw std::invalid_argument("La matrice est singulière, elle n'a pas d'inverse.");
 		}
 
-		Matrice<N> adjugate; // Matrice adjointe
-		for (size_t i = 0; i < N; ++i) {
-			for (size_t j = 0; j < N; ++j) {
-				// calculing cofactor and transpose
-				adjugate.values[j][i] = ((i + j) % 2 == 0 ? 1 : -1) * cofactor(i, j).determinant();
+		Matrice<N> cofactorMatrix = this->cofactorMatrix();
+		Matrice<N> adjugateMatrix = cofactorMatrix.transpose();
+
+		Matrice<N> inverseMatrix;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				inverseMatrix.values[i][j] = adjugateMatrix.values[i][j] / det;
 			}
 		}
 
-		// divide by determinant to get the inverse
-		Matrice<N> inverse;
-		for (size_t i = 0; i < N; ++i) {
-			for (size_t j = 0; j < N; ++j) {
-				inverse.values[i][j] = adjugate.values[i][j] / det;
-			}
-		}
-
-		return inverse;
+		return inverseMatrix;
 	}
 
 	private : 
-		Matrice<N - 1> cofacteur(size_t i, size_t j) const {
-			Matrice<N - 1> minor;
-			size_t minorRow = 0, minorCol = 0;
-			for (size_t row = 0; row < N; ++row) {
-				if (row == i) continue;
-				minorCol = 0;
-				for (size_t col = 0; col < N; ++col) {
-					if (col == j) continue;
-					minor.values[minorRow][minorCol] = values[row][col];
-					minorCol++;
+		// get a subMatrix in deleting a row and a colonne
+		Matrice<N - 1> getSubMatrix(int skipRow, int skipCol)
+		{
+			Matrice<N - 1> subMatrix;
+
+			int r = 0;
+			for (size_t i = 0; i < N; i++)
+			{
+				if (i == skipRow) continue;
+
+				int c = 0;
+				for (size_t j = 0; j < N; j++)
+				{
+					if (j == skipCol) continue;
+					subMatrix.values[r][c] = values[i][j];
+
+					c++;
 				}
-				minorRow++;
+				r++;
 			}
-			return minor;
+			return subMatrix;
 		}
 
+		Matrice<N> cofactorMatrix() {
+			Matrice<N> cofactorMatrix;
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					cofactorMatrix.values[i][j] = (i + j) % 2 == 0 ? getSubMatrix(i, j).determinant() : -getSubMatrix(i, j).determinant();
+				}
+			}
+			return cofactorMatrix;
+		}
+
+};
+
+template <>
+class Matrice<1>
+{
+public:
+	float values[1][1];
+
+	float determinant() const {
+		return values[0][0];
+	}
 };

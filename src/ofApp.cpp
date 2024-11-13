@@ -27,8 +27,8 @@ void ofApp::setup() {
 	playerCommandsGroup.add(rightCommand.setup("Right", "RIGHT ARROW"));
 	playerCommandsGroup.add(leftCommand.setup("Left", "LEFT ARROW"));*/
 
-	Matrice<4>* m = new Matrice<4>{ 1.0f, 2.0f };
-	cout << *m << endl;;
+	Matrice<4>* m = new Matrice<4>{ 1, 2, 3, 4, 2, 5, 4, 3, 3, 4, 5, 2, 4, 3, 2, 1 };
+
 
 	TestMatrice().RunTest();
 }
