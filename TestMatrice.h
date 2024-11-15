@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Matrice.h"
+#include "./Matrice.h"
 
 class TestMatrice
 {
-public: 
+public:
 	void RunTest();
 
-private: 
+private:
 
 	void TestConstructor();
 	void TestEqual();
@@ -21,4 +21,3 @@ private:
 	void TestInverse();
 
 };
-

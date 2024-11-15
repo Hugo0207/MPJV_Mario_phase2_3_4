@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "Quaternion.h"
 #include <cmath>
 #include <stdexcept>
 #include "Vector.h"
 #include "Matrice.h"
 
-// Définition de PI 
+// DÃ©finition de PI 
 #ifndef PI
 #define PI 3.14159265358979323846
 #endif
@@ -17,13 +17,13 @@ public:
     Vector xyzVector;
 
     // Constructeurs
-    Quaternion() : w(1.0f), xyzVector(1.0f,1.0f, 1.0f) {}
+    Quaternion() : w(1.0f), xyzVector(1.0f, 1.0f, 1.0f) {}
     Quaternion(float w, const Vector& xyzVector); // Constructeur avec composantes
 
-    // Méthode statique pour créer un quaternion à partir d'un angle et d'un axe
+    // MÃ©thode statique pour crÃ©er un quaternion Ã  partir d'un angle et d'un axe
     static Quaternion fromAxisAngle(float rotationAngle, const Vector& rotationAxis);
 
-    // Méthodes
+    // MÃ©thodes
     float norm() const;
     Quaternion normalize() const;
     Quaternion conjugate() const;
@@ -39,7 +39,7 @@ public:
     Quaternion& operator*=(float scalar);
     Quaternion operator/(float scalar) const;
     Quaternion& operator/=(float scalar);
-	Quaternion operator-() const;
+    Quaternion operator-() const;
 
     float dotProduct(const Quaternion& other) const;
 
@@ -56,6 +56,6 @@ public:
     Matrice<3> convertToMatrix() const;
 
 private:
-    // Méthode privée pour éviter la redondance
+    // MÃ©thode privÃ©e pour Ã©viter la redondance
     static Quaternion createQuat(float w, const Vector& xyzVector);
 };

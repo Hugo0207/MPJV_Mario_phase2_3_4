@@ -1,4 +1,4 @@
-#include "Quaternion.h"
+ï»¿#include "Quaternion.h"
 
 
 
@@ -10,7 +10,7 @@ Quaternion Quaternion::fromAxisAngle(float rotationAngle, const Vector& rotation
 {
     if (rotationAxis.norm() == 0.0f)
     {
-        throw std::invalid_argument("L'axe de rotation ne peut pas être le vecteur nul.");
+        throw std::invalid_argument("L'axe de rotation ne peut pas Ãªtre le vecteur nul.");
     }
 
     float halfRotationAngleRad = (rotationAngle * PI / 180.0f) / 2.0f;
@@ -40,7 +40,7 @@ Quaternion Quaternion::normalize() const
     return Quaternion(w / n, xyzVector / n);
 }
 
-// Conjugué du quaternion
+// ConjuguÃ© du quaternion
 Quaternion Quaternion::conjugate() const
 {
     return Quaternion(w, xyzVector * (-1));
@@ -57,7 +57,7 @@ Quaternion Quaternion::inverse() const
     return conjugate() / (n * n);
 }
 
-// Opérateur d'addition
+// OpÃ©rateur d'addition
 Quaternion Quaternion::operator+(const Quaternion& other) const
 {
     return Quaternion(w + other.w, xyzVector + other.xyzVector);
@@ -70,7 +70,7 @@ Quaternion& Quaternion::operator+=(const Quaternion& other)
     return *this;
 }
 
-// Opérateur de multiplication par un quaternion
+// OpÃ©rateur de multiplication par un quaternion
 Quaternion Quaternion::operator*(const Quaternion& other) const
 {
     float resW = w * other.w - xyzVector.dotProduct(other.xyzVector);
@@ -85,7 +85,7 @@ Quaternion& Quaternion::operator*=(const Quaternion& other)
     return *this;
 }
 
-// Opérateur de multiplication par un scalaire
+// OpÃ©rateur de multiplication par un scalaire
 Quaternion Quaternion::operator*(float scalar) const
 {
     return Quaternion(w * scalar, xyzVector * scalar);
@@ -129,7 +129,7 @@ float Quaternion::dotProduct(const Quaternion& other) const
     return w * other.w + xyzVector.x * other.xyzVector.x + xyzVector.y * other.xyzVector.y + xyzVector.z * other.xyzVector.z;
 }
 
-// Application d'une rotation à un vecteur
+// Application d'une rotation Ã  un vecteur
 Vector Quaternion::applyRotation(const Vector& target) const
 {
     Vector u = xyzVector;
@@ -146,13 +146,13 @@ Quaternion Quaternion::exponentiation(float t) const
     float sinHalfTheta = sin(halfTheta);
     if (fabs(sinHalfTheta) < 1e-6f)
     {
-        // Retourne le quaternion courant pour éviter la division par zéro
+        // Retourne le quaternion courant pour Ã©viter la division par zÃ©ro
         return *this;
     }
     return Quaternion(cos(t * halfTheta), xyzVector * (sin(t * halfTheta) / sinHalfTheta));
 }
 
-// Obtient l'angle de rotation (en degrés)
+// Obtient l'angle de rotation (en degrÃ©s)
 float Quaternion::getRotationAngle() const
 {
     return (2.0f * acos(w)) * 180.0f / PI;
@@ -164,13 +164,13 @@ Vector Quaternion::getRotationAxis() const
     float sinHalfTheta = sqrt(1.0f - w * w);
     if (sinHalfTheta < 1e-6f)
     {
-        // L'axe est indéfini si l'angle est proche de 0 ou 180 degrés
+        // L'axe est indÃ©fini si l'angle est proche de 0 ou 180 degrÃ©s
         return Vector(1.0f, 0.0f, 0.0f); // Retourne un axe arbitraire
     }
     return xyzVector / sinHalfTheta;
 }
 
-// Modifie l'angle de rotation (en degrés)
+// Modifie l'angle de rotation (en degrÃ©s)
 void Quaternion::setRotationAngle(float angle)
 {
     float halfRotationAngleRad = (angle * PI / 180.0f) / 2.0f;
@@ -184,7 +184,7 @@ void Quaternion::setRotationAxis(const Vector& axis)
 {
     if (axis.norm() == 0.0f)
     {
-        throw std::invalid_argument("L'axe de rotation ne peut pas être le vecteur nul.");
+        throw std::invalid_argument("L'axe de rotation ne peut pas Ãªtre le vecteur nul.");
     }
 
     float halfRotationAngleRad = acos(w);
@@ -215,7 +215,7 @@ Matrice<3> Quaternion::convertToMatrix() const
         });
 }
 
-// Méthode privée pour créer un quaternion
+// MÃ©thode privÃ©e pour crÃ©er un quaternion
 Quaternion Quaternion::createQuat(float w, const Vector& xyzVector)
 {
     return Quaternion(w, xyzVector);

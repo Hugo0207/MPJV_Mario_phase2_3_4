@@ -126,7 +126,7 @@ bool Vector::operator!=(const Vector& vec) const {
 }
 
 Vector Vector::operator-() const {
-	return Vector(-x, -y, -z);
+    return Vector(-x, -y, -z);
 }
 
 

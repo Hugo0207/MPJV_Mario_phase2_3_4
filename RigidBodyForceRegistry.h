@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include "CorpsRigide.h"
 #include "RigidBodyForceGenerator.h"
@@ -6,7 +6,7 @@
 class RigidBodyForceRegistry
 {
 protected:
-    // Structure pour enregistrer les associations entre corps rigides et générateurs de force
+    // Structure pour enregistrer les associations entre corps rigides et gï¿½nï¿½rateurs de force
     struct RigidBodyForceRegistration
     {
         CorpsRigide* rigidBody;
@@ -17,14 +17,14 @@ protected:
     std::vector<RigidBodyForceRegistration> registrations;
 
 public:
-    // Constructeur par défaut
+    // Constructeur par dï¿½faut
     RigidBodyForceRegistry();
 
-    // Méthodes pour ajouter et supprimer des enregistrements
+    // Mï¿½thodes pour ajouter et supprimer des enregistrements
     void add(CorpsRigide* rigidBody, RigidBodyForceGenerator* forceGenerator);
     void remove(CorpsRigide* rigidBody, RigidBodyForceGenerator* forceGenerator);
     void clear();
 
-    // Mise à jour de toutes les forces dans le registre
+    // Mise ï¿½ jour de toutes les forces dans le registre
     void updateForces(float deltaTime);
 };

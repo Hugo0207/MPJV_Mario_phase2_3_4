@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <initializer_list>
 #include <iostream>
 #include <stdexcept>
@@ -11,7 +11,7 @@ class Matrice
 public:
     float values[N][N];
 
-    // Constructeur par défaut
+    // Constructeur par dÃ©faut
     Matrice() {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
@@ -31,7 +31,8 @@ public:
     }
 
     // Constructeur de copie
-    Matrice(const Matrice& other) {
+    Matrice(const Matrice& other)
+    {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
                 values[i][j] = other.values[i][j];
@@ -39,7 +40,7 @@ public:
         }
     }
 
-    // Opérateur d'affichage
+    // OpÃ©rateur d'affichage
     friend std::ostream& operator<<(std::ostream& os, const Matrice& mat) {
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
@@ -50,25 +51,25 @@ public:
         return os;
     }
 
-    // Opérateur d'égalité
-    bool operator==(const Matrice& other) const {
+    // OpÃ©rateur d'Ã©galitÃ©
+    bool operator==(Matrice& other) {
+        bool IsEqual = true;
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
-                if (this->values[i][j] != other.values[i][j]) {
-                    return false;
-                }
+                if (this->values[i][j] != other.values[i][j]) IsEqual = false;
             }
+            return IsEqual;
         }
-        return true;
     }
 
-    // Opérateur d'inégalité
+    // OpÃ©rateur d'inÃ©galitÃ©
     bool operator!=(const Matrice& other) const {
         return !(*this == other);
     }
 
-    // Opérateurs d'affectation composés avec une autre matrice
-    Matrice& operator+=(const Matrice& other) {
+    // OpÃ©rateurs d'affectation composÃ©s avec une autre matrice
+    Matrice& operator+=(const Matrice& other)
+    {
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
                 this->values[i][j] += other.values[i][j];
@@ -77,7 +78,8 @@ public:
         return *this;
     }
 
-    Matrice& operator-=(const Matrice& other) {
+    Matrice& operator-=(const Matrice& other)
+    {
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
                 this->values[i][j] -= other.values[i][j];
@@ -86,29 +88,42 @@ public:
         return *this;
     }
 
-    // Opérateurs d'addition et de soustraction avec une autre matrice
-    Matrice operator+(const Matrice& other) const {
-        Matrice<N> result;
+    // OpÃ©rateurs d'addition et de soustraction avec une autre matrice
+    Matrice operator+(const Matrice& other) const
+    {
+        Matrice<N> m;
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] + other.values[i][j];
+                m.values[i][j] = this->values[i][j] + other.values[i][j];
             }
         }
-        return result;
+        return m;
     }
 
-    Matrice operator-(const Matrice& other) const {
-        Matrice<N> result;
+    Matrice operator-(const Matrice& other) const
+    {
+        Matrice<N> m;
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] - other.values[i][j];
+                m.values[i][j] = this->values[i][j] - other.values[i][j];
             }
         }
-        return result;
+        return m;
     }
 
-    // Opérateurs avec un scalaire
-    Matrice& operator*=(float scalar) {
+    // OpÃ©rateurs avec un scalaire
+
+    /*Matrice& operator*=(float scalar) {
+        for (size_t i = 0; i < N; i++) {
+            for (size_t j = 0; j < N; j++) {
+                this->values[i][j] *= scalar;
+            }
+        }
+        return *this;
+    }*/
+
+    Matrice& operator*(float scalar)
+    {
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
                 this->values[i][j] *= scalar;
@@ -117,20 +132,24 @@ public:
         return *this;
     }
 
-    Matrice operator*(float scalar) const {
-        Matrice<N> result;
+    /*Matrice& operator/=(float scalar) {
+        if (scalar == 0.0f) {
+            throw std::invalid_argument("Division par zÃ©ro non autorisÃ©e.");
+        }
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] * scalar;
+                this->values[i][j] /= scalar;
             }
         }
-        return result;
-    }
+        return *this;
+    }*/
 
-    Matrice& operator/=(float scalar) {
-        if (scalar == 0.0f) {
-            throw std::invalid_argument("Division par zéro non autorisée.");
+    Matrice& operator/(float scalar)
+    {
+        if (scalar == 0) {
+            throw std::invalid_argument("Vous ne pouvez pas diviser par 0");
         }
+
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
                 this->values[i][j] /= scalar;
@@ -139,59 +158,49 @@ public:
         return *this;
     }
 
-    Matrice operator/(float scalar) const {
-        if (scalar == 0.0f) {
-            throw std::invalid_argument("Division par zéro non autorisée.");
-        }
-        Matrice<N> result;
+    // OpÃ©rateurs d'addition et de soustraction avec un scalaire
+    Matrice operator+(float scalar) const
+    {
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] / scalar;
+                m.values[i][j] += scalar;
             }
         }
-        return result;
+        return *this;
     }
 
-    // Opérateurs d'addition et de soustraction avec un scalaire
-    Matrice operator+(float scalar) const {
-        Matrice<N> result;
+    Matrice operator-(float scalar) const
+    {
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] + scalar;
+                m.values[i][j] -= scalar;
             }
         }
-        return result;
+        return *this;
     }
 
-    Matrice operator-(float scalar) const {
-        Matrice<N> result;
+    // OpÃ©rateur de multiplication matricielle
+    Matrice operator*(const Matrice& other) const
+    {
+        Matrice<N> m;
+        float value = 0;
         for (size_t i = 0; i < N; i++) {
             for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = this->values[i][j] - scalar;
-            }
-        }
-        return result;
-    }
-
-    // Opérateur de multiplication matricielle
-    Matrice operator*(const Matrice& other) const {
-        Matrice<N> result;
-        for (size_t i = 0; i < N; i++) {
-            for (size_t j = 0; j < N; j++) {
-                result.values[i][j] = 0.0f;
                 for (size_t k = 0; k < N; k++) {
-                    result.values[i][j] += this->values[i][k] * other.values[k][j];
+                    value += this->values[i][k] * other.values[k][j];
                 }
+                m.values[i][j] = value;
+                value = 0;
             }
         }
-        return result;
+        return m;
     }
 
 
-	// Opérateur de multiplication matrice-vecteur
+    // OpÃ©rateur de multiplication matrice-vecteur
     Vector operator*(const Vector& vec) const
     {
-        static_assert(N == 3, "Cette opération est définie uniquement pour N = 3.");
+        static_assert(N == 3, "Cette opÃ©ration est dÃ©finie uniquement pour N = 3.");
         Vector result;
         result.x = values[0][0] * vec.x + values[0][1] * vec.y + values[0][2] * vec.z;
         result.y = values[1][0] * vec.x + values[1][1] * vec.y + values[1][2] * vec.z;
@@ -200,70 +209,89 @@ public:
     }
 
 
-    // Calcul du déterminant
-    float determinant() const {
-        static_assert(N > 1, "La matrice doit être au moins 2x2 pour calculer un déterminant.");
+    // Calcul du dÃ©terminant
+    float determinant() const{
+            
+        if (N == 1) return values[0][0];
+        if (N == 2) return values[0][0] * values[1][1] - values[0][1] * values[1][0];
 
-        if constexpr (N == 2) {
-            // Calcul du déterminant pour une matrice 2x2
-            return values[0][0] * values[1][1] - values[0][1] * values[1][0];
+        float det = 0;
+
+        for (size_t col = 0; col < N; col++)
+        {
+            float cofactor = (col % 2 == 0 ? 1 : -1) * values[0][col];
+
+            det += cofactor * getSubMatrix(0, col).determinant();
         }
-        else if constexpr (N == 3) {
-            // Méthode de Sarrus pour une matrice 3x3
-            return values[0][0] * (values[1][1] * values[2][2] - values[1][2] * values[2][1])
-                - values[0][1] * (values[1][0] * values[2][2] - values[1][2] * values[2][0])
-                + values[0][2] * (values[1][0] * values[2][1] - values[1][1] * values[2][0]);
-        }
-        else {
-            // Méthode par cofacteurs pour une matrice NxN (N > 3)
-            float det = 0.0f;
-            for (size_t j = 0; j < N; ++j) {
-                float sign = ((j % 2 == 0) ? 1.0f : -1.0f);
-                det += sign * values[0][j] * cofacteur(0, j).determinant();
-            }
-            return det;
-        }
+
+        return det;
     }
 
-    // Transposée de la matrice
+    // TransposÃ©e de la matrice
     Matrice<N> transpose() const {
         Matrice<N> transposed;
         for (size_t i = 0; i < N; ++i) {
             for (size_t j = 0; j < N; ++j) {
-                transposed.values[j][i] = values[i][j];
+                transposed.values[j][i] = this->values[i][j];
             }
         }
         return transposed;
     }
 
     // Inverse de la matrice
-    Matrice<N> inverse() const {
+    Matrice<N> inverse() const{
         float det = determinant();
-        if (det == 0.0f) {
-            throw std::invalid_argument("Le déterminant est nul; la matrice n'est pas inversible.");
+        if (det == 0) {
+            throw std::invalid_argument("La matrice est singuliÃ¨re, elle n'a pas d'inverse.");
         }
 
-        Matrice<N> adjugate; // Matrice adjointe (transposée de la comatrice)
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = 0; j < N; ++j) {
-                float sign = ((i + j) % 2 == 0) ? 1.0f : -1.0f;
-                adjugate.values[j][i] = sign * cofacteur(i, j).determinant(); // Notez l'indice [j][i] pour la transposée
+        Matrice<N> cofactorMatrix = this->cofactorMatrix();
+        Matrice<N> adjugateMatrix = cofactorMatrix.transpose();
+
+        Matrice<N> inverseMatrix;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                inverseMatrix.values[i][j] = adjugateMatrix.values[i][j] / det;
             }
         }
 
-        // Division par le déterminant
-        Matrice<N> inverse;
-        for (size_t i = 0; i < N; ++i) {
-            for (size_t j = 0; j < N; ++j) {
-                inverse.values[i][j] = adjugate.values[i][j] / det;
-            }
-        }
-
-        return inverse;
+        return inverseMatrix;
     }
 
 private:
-    // Calcul du cofacteur pour les matrices de taille N > 1
+    // get a subMatrix in deleting a row and a colonne
+    Matrice<N - 1> getSubMatrix(int skipRow, int skipCol) const{
+        Matrice<N - 1> subMatrix;
+
+        int r = 0;
+        for (size_t i = 0; i < N; i++)
+        {
+            if (i == skipRow) continue;
+
+            int c = 0;
+            for (size_t j = 0; j < N; j++)
+            {
+                if (j == skipCol) continue;
+                subMatrix.values[r][c] = values[i][j];
+
+                c++;
+            }
+            r++;
+        }
+        return subMatrix;
+    }
+
+    Matrice<N> cofactorMatrix() const{
+        Matrice<N> cofactorMatrix;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                cofactorMatrix.values[i][j] = (i + j) % 2 == 0 ? getSubMatrix(i, j).determinant() : -getSubMatrix(i, j).determinant();
+            }
+        }
+        return cofactorMatrix;
+    }
+
+    /* Calcul du cofacteur pour les matrices de taille N > 1
     Matrice<N - 1> cofacteur(size_t row_to_remove, size_t col_to_remove) const {
         Matrice<N - 1> minor;
         size_t minorRow = 0;
@@ -278,5 +306,16 @@ private:
             minorRow++;
         }
         return minor;
+    }*/
+};
+
+template <>
+class Matrice<1>
+{
+public:
+    float values[1][1];
+
+    float determinant() const {
+        return values[0][0];
     }
 };

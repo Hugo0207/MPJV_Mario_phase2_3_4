@@ -1,6 +1,6 @@
-#include "RigidBodyForceRegistry.h"
+ï»¿#include "RigidBodyForceRegistry.h"
 
-// Constructeur par défaut
+// Constructeur par dï¿½faut
 RigidBodyForceRegistry::RigidBodyForceRegistry()
 {
     // Initialement, la liste des enregistrements est vide
@@ -34,7 +34,7 @@ void RigidBodyForceRegistry::clear()
     registrations.clear();
 }
 
-// Met à jour toutes les forces dans le registre
+// Met ï¿½ jour toutes les forces dans le registre
 void RigidBodyForceRegistry::updateForces(float deltaTime)
 {
     for (auto& registration : registrations)

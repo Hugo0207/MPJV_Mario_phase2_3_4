@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ForceGenerator.h"
 #include "Vector.h"
 
-class SpringHooke1Generator : public ForceGenerator{
+class SpringHooke1Generator : public ForceGenerator {
 public:
-    // Pour une particule reliée à un point fixe
-    Vector anchor; // Coordonnées du point fixe
+    // Pour une particule reliï¿½e ï¿½ un point fixe
+    Vector anchor; // Coordonnï¿½es du point fixe
     float k; // Constante du ressort
     float restLength; // Longueur au repos
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Vector.h"
 #include "Quaternion.h"
 #include "Matrice.h"
@@ -6,17 +6,17 @@
 class CorpsRigide
 {
 private:
-    // Propriétés de masse
+    // Propriï¿½tï¿½s de masse
     float mass;
     float inverseMass;
 
-    // Propriétés de mouvement linéaire
+    // Propriï¿½tï¿½s de mouvement linï¿½aire
     Vector position;
     Vector linearVelocity;
     Vector linearAcceleration;
     float dampingLinear;
 
-    // Propriétés de mouvement angulaire
+    // Propriï¿½tï¿½s de mouvement angulaire
     Quaternion orientation;
     Vector angularVelocity;
     Vector angularAcceleration;
@@ -39,13 +39,13 @@ private:
     Vector forceApplicationPoint;
     // Direction de la force (pour la visualisation)
     Vector forceDirection;
-	// Position historique (pour la visualisation)
+    // Position historique (pour la visualisation)
     std::vector<Vector> positionsHistory;
 
 
 
 public:
-    // Constructeur par défaut
+    // Constructeur par dï¿½faut
     CorpsRigide();
 
     // Gestion de la masse
@@ -54,34 +54,34 @@ public:
     bool hasInfiniteMass() const;
 
     // Gestion du tenseur d'inertie
-    void setInertiaTensor(const Matrice<3>& inertiaTensor);
+    void setInertiaTensor(const Matrice<3> inertiaTensor);
     Matrice<3> getInertiaTensor() const;
 
-    // Accès aux propriétés de position et d'orientation
+    // Accï¿½s aux propriï¿½tï¿½s de position et d'orientation
     void setPosition(const Vector& position);
     Vector getPosition() const;
 
     void setOrientation(const Quaternion& orientation);
     Quaternion getOrientation() const;
 
-    // Accès aux vitesses
+    // Accï¿½s aux vitesses
     void setLinearVelocity(const Vector& velocity);
     Vector getLinearVelocity() const;
 
     void setAngularVelocity(const Vector& angularVelocity);
     Vector getAngularVelocity() const;
 
-    // Méthodes pour appliquer des forces et des torques
+    // Mï¿½thodes pour appliquer des forces et des torques
     void applyForce(const Vector& force);
     void applyForceAtPoint(const Vector& force, const Vector& point);
 
-    // Intégration du mouvement
+    // Intï¿½gration du mouvement
     void integrate(float deltaTime);
 
     // Gestion des accumulateurs
     void clearAccumulators();
 
-    // Autres méthodes utiles
+    // Autres mï¿½thodes utiles
     void calculateDerivedData();
     Matrice<4> getTransformMatrix() const;
 
@@ -91,6 +91,6 @@ public:
     void setForceDirection(const Vector& direction);
     Vector getForceDirection() const;
 
-	void addPositionHistory(const Vector& position);
-	std::vector<Vector> getPositionsHistory() const;
+    void addPositionHistory(const Vector& position);
+    std::vector<Vector> getPositionsHistory() const;
 };

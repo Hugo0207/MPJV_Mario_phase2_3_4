@@ -3,7 +3,7 @@
 #include "ForceGenerator.h"
 #include "Vector.h"
 
-class FrictionGenerator : public ForceGenerator{
+class FrictionGenerator : public ForceGenerator {
 public:
 	float frictionCoefficient;
 

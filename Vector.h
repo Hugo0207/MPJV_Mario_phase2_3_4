@@ -52,7 +52,7 @@ public:
     Vector& operator-=(const Vector& vec);
     Vector& operator*=(float scalar);
     Vector& operator/=(float scalar);
-	Vector operator-() const;
+    Vector operator-() const;
     bool operator==(const Vector& vec) const;
     bool operator!=(const Vector& vec) const;
 

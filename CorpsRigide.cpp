@@ -1,24 +1,24 @@
-#include "CorpsRigide.h"
+ï»¿#include "CorpsRigide.h"
 
 CorpsRigide::CorpsRigide()
 {
-    // Masse infinie par défaut (immobile)
+    // Masse infinie par dï¿½faut (immobile)
     mass = 0.0f;
     inverseMass = 0.0f;
 
-    // Mouvement linéaire initialisé à zéro
+    // Mouvement linï¿½aire initialisï¿½ ï¿½ zï¿½ro
     position = Vector();
     linearVelocity = Vector();
     linearAcceleration = Vector();
-    dampingLinear = 0.99f; // Valeur par défaut pour le damping linéaire
+    dampingLinear = 0.99f; // Valeur par dï¿½faut pour le damping linï¿½aire
 
-    // Mouvement angulaire initialisé à zéro
+    // Mouvement angulaire initialisï¿½ ï¿½ zï¿½ro
     orientation = Quaternion(0.0f, Vector(0.0f, 0.0f, 1.0f));
     angularVelocity = Vector();
     angularAcceleration = Vector();
-    dampingAngular = 0.99f; // Valeur par défaut pour le damping angulaire
+    dampingAngular = 0.99f; // Valeur par dï¿½faut pour le damping angulaire
 
-    // Tenseurs d'inertie initialisés à l'identité
+    // Tenseurs d'inertie initialisï¿½s ï¿½ l'identitï¿½
     inertiaTensorLocal = Matrice<3>({
         1.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
@@ -26,11 +26,11 @@ CorpsRigide::CorpsRigide()
         });
     inverseInertiaTensorLocal = inertiaTensorLocal.inverse();
 
-    // Accumulateurs initialisés à zéro
+    // Accumulateurs initialisï¿½s ï¿½ zï¿½ro
     forceAccumulated = Vector();
     torqueAccumulated = Vector();
 
-    // Calcul des données dérivées initiales
+    // Calcul des donnï¿½es dï¿½rivï¿½es initiales
     calculateDerivedData();
 }
 
@@ -60,11 +60,11 @@ bool CorpsRigide::hasInfiniteMass() const
 
 // Gestion du Tenseur d'Inertie
 
-void CorpsRigide::setInertiaTensor(const Matrice<3>& inertiaTensor)
+void CorpsRigide::setInertiaTensor(const Matrice<3> inertiaTensor)
 {
     inertiaTensorLocal = inertiaTensor;
 
-    // Vérification que le tenseur d'inertie est valide
+    // Vï¿½rification que le tenseur d'inertie est valide
     float det = inertiaTensor.determinant();
     if (det == 0.0f)
     {
@@ -80,7 +80,7 @@ Matrice<3> CorpsRigide::getInertiaTensor() const
 }
 
 
-// Accès aux Propriétés de Position et d'Orientation
+// Accï¿½s aux Propriï¿½tï¿½s de Position et d'Orientation
 
 void CorpsRigide::setPosition(const Vector& position)
 {
@@ -95,7 +95,7 @@ Vector CorpsRigide::getPosition() const
 void CorpsRigide::setOrientation(const Quaternion& orientation)
 {
     this->orientation = orientation;
-    this->orientation = this->orientation.normalize(); // Assure que le quaternion est normalisé
+    this->orientation = this->orientation.normalize(); // Assure que le quaternion est normalisï¿½
 }
 
 Quaternion CorpsRigide::getOrientation() const
@@ -103,7 +103,7 @@ Quaternion CorpsRigide::getOrientation() const
     return orientation;
 }
 
-// Intégration du Mouvement
+// Intï¿½gration du Mouvement
 
 void CorpsRigide::integrate(float deltaTime)
 {
@@ -113,36 +113,36 @@ void CorpsRigide::integrate(float deltaTime)
         return;
     }
 
-    // Mise à jour de la position linéaire
+    // Mise ï¿½ jour de la position linï¿½aire
     position += linearVelocity * deltaTime;
 
-    // Calcul de l'accélération résultante
+    // Calcul de l'accï¿½lï¿½ration rï¿½sultante
     Vector resultingAcc = linearAcceleration;
     resultingAcc += forceAccumulated * inverseMass;
 
-    // Mise à jour de la vitesse linéaire
+    // Mise ï¿½ jour de la vitesse linï¿½aire
     linearVelocity += resultingAcc * deltaTime;
 
-    // Application du damping linéaire
+    // Application du damping linï¿½aire
     linearVelocity *= powf(dampingLinear, deltaTime);
 
-    // Mise à jour de l'orientation
+    // Mise ï¿½ jour de l'orientation
     Quaternion angularVelocityQuat(0.0f, angularVelocity);
     Quaternion deltaOrientation = angularVelocityQuat * orientation;
     orientation += deltaOrientation * (deltaTime * 0.5f);
-    orientation = orientation.normalize(); // Assure que le quaternion reste normalisé
+    orientation = orientation.normalize(); // Assure que le quaternion reste normalisï¿½
 
-    // Calcul de l'accélération angulaire résultante
+    // Calcul de l'accï¿½lï¿½ration angulaire rï¿½sultante
     Vector resultingAngularAcc = angularAcceleration;
     resultingAngularAcc += inverseInertiaTensorWorld * torqueAccumulated;
 
-    // Mise à jour de la vitesse angulaire
+    // Mise ï¿½ jour de la vitesse angulaire
     angularVelocity += resultingAngularAcc * deltaTime;
 
     // Application du damping angulaire
     angularVelocity *= powf(dampingAngular, deltaTime);
 
-    // Calcul des données dérivées pour la prochaine étape
+    // Calcul des donnï¿½es dï¿½rivï¿½es pour la prochaine ï¿½tape
     calculateDerivedData();
 
     // Effacement des accumulateurs
@@ -150,13 +150,13 @@ void CorpsRigide::integrate(float deltaTime)
 }
 
 
-// Calcul des Données Dérivées
+// Calcul des Donnï¿½es Dï¿½rivï¿½es
 void CorpsRigide::calculateDerivedData()
 {
-    // Calcul de la matrice de transformation à partir de la position et de l'orientation
+    // Calcul de la matrice de transformation ï¿½ partir de la position et de l'orientation
     Matrice<3> rotationMatrix = orientation.convertToMatrix();
 
-    // Mise à jour du tenseur d'inertie dans l'espace monde
+    // Mise ï¿½ jour du tenseur d'inertie dans l'espace monde
     inertiaTensorWorld = rotationMatrix * inertiaTensorLocal * rotationMatrix.transpose();
     inverseInertiaTensorWorld = inertiaTensorWorld.inverse();
 
@@ -194,7 +194,7 @@ void CorpsRigide::clearAccumulators()
     torqueAccumulated = Vector();
 }
 
-// Accès aux vitesses linéaires
+// Accï¿½s aux vitesses linï¿½aires
 
 void CorpsRigide::setLinearVelocity(const Vector& velocity)
 {
@@ -206,7 +206,7 @@ Vector CorpsRigide::getLinearVelocity() const
     return linearVelocity;
 }
 
-// Accès aux vitesses angulaires
+// Accï¿½s aux vitesses angulaires
 
 void CorpsRigide::setAngularVelocity(const Vector& angularVelocity)
 {
@@ -218,7 +218,7 @@ Vector CorpsRigide::getAngularVelocity() const
     return angularVelocity;
 }
 
-// Accès à la matrice de transformation
+// Accï¿½s ï¿½ la matrice de transformation
 
 Matrice<4> CorpsRigide::getTransformMatrix() const
 {
@@ -250,7 +250,7 @@ void CorpsRigide::addPositionHistory(const Vector& position)
 {
     positionsHistory.push_back(position);
 
-    // Limite la taille de positionsHistory à 500 positions
+    // Limite la taille de positionsHistory ï¿½ 500 positions
     if (positionsHistory.size() > 500)
     {
         positionsHistory.erase(positionsHistory.begin());
@@ -259,6 +259,6 @@ void CorpsRigide::addPositionHistory(const Vector& position)
 
 std::vector<Vector> CorpsRigide::getPositionsHistory() const
 {
-	return positionsHistory;
+    return positionsHistory;
 }
 

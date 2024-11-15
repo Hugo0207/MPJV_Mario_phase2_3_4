@@ -1,4 +1,4 @@
-#include "World.h"
+ï»¿#include "World.h"
 
 World::World(float deltaTime) : deltaTime(deltaTime) {}
 
@@ -27,16 +27,16 @@ void World::removeForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator
 
 void World::update()
 {
-    // Mise à jour des forces
+    // Mise ï¿½ jour des forces
     forceRegistry.updateForces(deltaTime);
 
-    // Intégration du mouvement de chaque corps rigide
+    // Intï¿½gration du mouvement de chaque corps rigide
     for (auto rigidBody : rigidBodies)
     {
         rigidBody->integrate(deltaTime);
     }
 
-    // Gestion des collisions à implémenter ultérieurement
+    // Gestion des collisions ï¿½ implï¿½menter ultï¿½rieurement
 }
 
 const std::vector<CorpsRigide*>& World::getRigidBodies() const

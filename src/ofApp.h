@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "ofMain.h"
 #include "../World.h"
@@ -25,30 +25,30 @@ private:
     // Pointeur vers le monde physique
     World* world;
 
-    // Générateur de gravité
+    // Gï¿½nï¿½rateur de gravitï¿½
     GravityGenerator* gravityGenerator;
 
     // Delta time pour la simulation
     float deltaTime;
 
-    // Méthodes auxiliaires
+    // Mï¿½thodes auxiliaires
     void setupScene();
     void launchCube();
 
-    // Modèle 3D pour le cube
+    // Modï¿½le 3D pour le cube
     ofBoxPrimitive cubeMesh;
 
-    // Matériau pour le cube
+    // Matï¿½riau pour le cube
     ofMaterial cubeMaterial;
 
-    // Lumières pour l'éclairage
+    // Lumiï¿½res pour l'ï¿½clairage
     ofLight pointLight;
     ofLight directionalLight;
 
-    // Caméra pour la vue 3D
+    // Camï¿½ra pour la vue 3D
     ofEasyCam camera;
 
-    // Éléments GUI
+    // ï¿½lï¿½ments GUI
     ofxPanel gui;
     ofParameter<float> launchForce;      // Magnitude de la force
     ofParameter<float> forceDirX;        // Direction X de la force
@@ -59,7 +59,7 @@ private:
     ofParameter<float> forcePointZ;      // Point d'application Z
 
     ofParameter<float> forceAzimuth;    // Angle  (azimut)
-    ofParameter<float> forceElevation;  // Angle  (élévation)
+    ofParameter<float> forceElevation;  // Angle  (ï¿½lï¿½vation)
     bool showGui;
 
     ofPlanePrimitive groundPlane;

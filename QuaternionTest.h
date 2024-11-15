@@ -20,4 +20,3 @@ private:
     static void testConstructors();
     static void testConvertToMatrix();
 };
-

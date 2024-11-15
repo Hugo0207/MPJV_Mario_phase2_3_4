@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include "CorpsRigide.h"
 #include "RigidBodyForceRegistry.h"
@@ -21,13 +21,13 @@ public:
     void addForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator* fg);
     void removeForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator* fg);
 
-    // Mise à jour de la simulation
+    // Mise ï¿½ jour de la simulation
     void update();
 
-    // Accès aux corps rigides
+    // Accï¿½s aux corps rigides
     const std::vector<CorpsRigide*>& getRigidBodies() const;
 
-	// Accesseurs
-	float getDeltaTime() const { return deltaTime; }
-	void setDeltaTime(float deltaTime) { this->deltaTime = deltaTime; }
+    // Accesseurs
+    float getDeltaTime() const { return deltaTime; }
+    void setDeltaTime(float deltaTime) { this->deltaTime = deltaTime; }
 };

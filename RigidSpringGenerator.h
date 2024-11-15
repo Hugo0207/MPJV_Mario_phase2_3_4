@@ -2,7 +2,7 @@
 #include "ForceGenerator.h"
 #include "Vector.h"
 
-class RigidSpringGenerator : public ForceGenerator{
+class RigidSpringGenerator : public ForceGenerator {
 public:
     Particle* otherParticle;
     float restLength;
