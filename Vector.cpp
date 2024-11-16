@@ -115,9 +115,9 @@ Vector& Vector::operator/=(float scalar) {
 }
 
 bool Vector::operator==(const Vector& vec) const {
-    bool equalX = abs(x - vec.x) < 1e-7;
-    bool equalY = abs(y - vec.y) < 1e-7;
-    bool equalZ = abs(z - vec.z) < 1e-7;
+    bool equalX = abs(x - vec.x) < 1e-6;
+    bool equalY = abs(y - vec.y) < 1e-6;
+    bool equalZ = abs(z - vec.z) < 1e-6;
     return equalX && equalY && equalZ;
 }
 

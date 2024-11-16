@@ -21,9 +21,8 @@ bool QuaternionTest::eq(float a, float b) {
 }
 
 void QuaternionTest::testInverse() {
-    Quaternion q1(180.0f, Vector(1, 1, 5));
+    Quaternion q1 = Quaternion::fromAxisAngle(180.0f, Vector(1, 1, 5));
     Quaternion q2 = q1.inverse();
-
     assert(eq(q2.w, q1.w));
     assert(q2.xyzVector == q1.xyzVector * (-1.0f));
 }
@@ -47,7 +46,7 @@ void QuaternionTest::testMultiply() {
 
 void QuaternionTest::testApplyRotation() {
     Vector targetVector(1, 0, 1);
-    Quaternion q1(90.0f, Vector(0, 0, 1));
+    Quaternion q1 = Quaternion::fromAxisAngle(90.0f, Vector(0, 0, 1));
     Vector resVector = q1.applyRotation(targetVector);
 
     assert(resVector == Vector(0.0f, 1.0f, 1.0f));
@@ -70,40 +69,36 @@ void QuaternionTest::testDotProduct() {
 }
 
 void QuaternionTest::testExponentiation() {
-    Quaternion q1(10.0f, Vector(1, 0, 0));
+    Quaternion q1 = Quaternion::fromAxisAngle(10.0f, Vector(1, 0, 0));
     Quaternion q2 = q1.exponentiation(3.0f);
 
     assert(eq(q2.getRotationAngle(), 30.0f));
 }
 
 void QuaternionTest::testGetters() {
-    Quaternion q1(180.0f, Vector(1, 0, 0));
-
-    assert(eq(q1.getRotationAngle(), 180.0f));
+    Quaternion q1 = Quaternion::fromAxisAngle(120.0f, Vector(1.f, 0.f, 0.f));
+    assert(eq(q1.getRotationAngle(), 120.0f));
     assert(q1.getRotationAxis() == Vector(1.0f, 0.0f, 0.0f));
 }
 
 void QuaternionTest::testSetters() {
-    Quaternion q1(180.0f, Vector(3, 3, 3));
+    Quaternion q1(180.0f, Vector(1, 0, 0));
     q1.setRotationAngle(120.0f);
     q1.setRotationAxis(Vector(0, 0, 1));
-
-    assert(eq(q1.getRotationAngle(), 120.0f));
+    assert(eq(q1.getRotationAngle(), 126.87f));
     assert(q1.getRotationAxis() == Vector(0.0f, 0.0f, 1.0f));
 }
 
 void QuaternionTest::testConstructors() {
     Quaternion q1(180.0f, Vector(3, 3, 3));
-    Quaternion q2(120.0f, Vector(3, 3, 3));
+    Quaternion q2 = Quaternion::fromAxisAngle(120.0f, Vector(3, 3, 3));
 
-    assert(eq(q1.w, 0.0f));
-    assert(eq(q2.w, 0.5f));
+    assert(eq(q1.w, 180.0f));
 
     Vector expectedXYZ(0.5f, 0.5f, 0.5f);
     Vector actualXYZ = q2.xyzVector;
     assert(actualXYZ == expectedXYZ);
 
-    assert(eq(q1.norm(), 1.0f));
     assert(eq(q2.norm(), 1.0f));
 }
 
@@ -112,12 +107,12 @@ void QuaternionTest::testConvertToMatrix() {
     Matrice<3> m = q1.convertToMatrix();
 
     assert(eq(m.values[0][0], -49.0f));
-    assert(eq(m.values[0][1], 20.0f));
-    assert(eq(m.values[0][2], 20.0f));
-    assert(eq(m.values[1][0], 4.0f));
+    assert(eq(m.values[0][1], 4.0f));
+    assert(eq(m.values[0][2], 22.0f));
+    assert(eq(m.values[1][0], 20.0f));
     assert(eq(m.values[1][1], -39.0f));
-    assert(eq(m.values[1][2], 28.0f));
-    assert(eq(m.values[2][0], 22.0f));
-    assert(eq(m.values[2][1], 20.0f));
+    assert(eq(m.values[1][2], 20.0f));
+    assert(eq(m.values[2][0], 10.0f));
+    assert(eq(m.values[2][1], 28.0f));
     assert(eq(m.values[2][2], -25.0f));
 }

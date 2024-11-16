@@ -75,7 +75,7 @@ void ofApp::setup()
     // Affiche la GUI par défaut
     showGui = true;
 
-    //QuaternionTest::runTests();
+    QuaternionTest::runTests();
     TestMatrice().RunTest();
 }
 
