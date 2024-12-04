@@ -52,12 +52,29 @@ public:
     Vector& operator-=(const Vector& vec);
     Vector& operator*=(float scalar);
     Vector& operator/=(float scalar);
+    Vector operator-() const;
     bool operator==(const Vector& vec) const;
     bool operator!=(const Vector& vec) const;
+
 
     // Conversion to glm types
     glm::vec2 toVec2() const { return glm::vec2(x, y); }
     glm::vec3 toVec3() const { return glm::vec3(x, y, z); }
+
+    static Vector min(const Vector& a, const Vector& b) {
+        return Vector(
+            std::min(a.x, b.x),
+            std::min(a.y, b.y),
+            std::min(a.z, b.z)
+        );
+    }
+    static Vector max(const Vector& a, const Vector& b) {
+        return Vector(
+            std::max(a.x, b.x),
+            std::max(a.y, b.y),
+            std::max(a.z, b.z)
+        );
+    }
 };
 
 #endif // VECTOR_H

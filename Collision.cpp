@@ -13,8 +13,8 @@ Collision::Collision(float restitutionCoeff, Vector gravity) {
 	gravity = gravity;
 }
 
-// Met Ã  jour le systÃ¨me de collision
-// DÃ©tecte les collisions chaque couple de particule puis rÃ©sout les collisions dÃ©tectÃ©es
+// Met à jour le système de collision
+// Détecte les collisions chaque couple de particule puis résout les collisions détectées
 void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 	for (auto p1 = particles.begin(); p1 != particles.end(); p1++)
 	{
@@ -23,7 +23,7 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 			if (detect(*p1, *p2))
 			{
 
-				// On rÃ©sout la collision ssi elle n'est pas dÃ©tectÃ©e au repos
+				// On résout la collision ssi elle n'est pas détectée au repos
 				if (!isRestContact(*p1, *p2, deltaTime)) {
 					resolve(*p1, *p2);
 				}
@@ -31,7 +31,7 @@ void Collision::update(std::vector<Particle*> particles, float deltaTime) {
 		}
 	}
 
-	for (auto& particle : particles) 
+	for (auto& particle : particles)
 	{
 		if (groundCollisionDetect(particle))
 		{
@@ -55,7 +55,7 @@ Vector Collision::impactPoint(Particle* pA, Particle* pB) {
 	return impact;
 }
 
-// DÃ©tecte la collision entre deux particules donnÃ©es
+// Détecte la collision entre deux particules données
 bool Collision::detect(Particle* pA, Particle* pB) {
 	float distanceCenter = pA->get_radius() + pB->get_radius();
 
@@ -67,7 +67,7 @@ bool Collision::detect(Particle* pA, Particle* pB) {
 	return false;
 }
 
-// VÃ©rifie si la collision trouvÃ©e est un contact au repos
+// Vérifie si la collision trouvée est un contact au repos
 bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 {
 	Vector normalVector = pA->normalVector(pB);
@@ -82,7 +82,7 @@ bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
 }
 
 
-// Sépare les deux particules après la collision
+// S�pare les deux particules apr�s la collision
 void Collision::proportionalDetach(Particle* pA, Particle* pB) {
 	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
 
@@ -104,7 +104,7 @@ void Collision::proportionalDetach(Particle* pA, Particle* pB) {
 }
 
 /*
-* RÃ©sout une collision entre un couple de particule Ã  l'aide d'impulsions
+* Résout une collision entre un couple de particule à l'aide d'impulsions
 */
 void Collision::resolve(Particle* pA, Particle* pB) {
 
@@ -121,6 +121,7 @@ void Collision::resolve(Particle* pA, Particle* pB) {
 bool Collision::groundCollisionDetect(Particle* particle)
 {
 	return (particle->position.y > ofGetHeight() - particle->get_radius());
+
 }
 
 void Collision::groundCollisionResolve(Particle* particle)
@@ -138,5 +139,29 @@ void Collision::groundCollisionResolve(Particle* particle)
 	particle->velocity = particle->velocity - ((normalVector * impulsionMagnitude) / particle->getMass());
 }
 
+bool Collision::groundCollisionDetectBox(const Boite& box, float planY, const OctreeNode& octree) {
+	if (!octree.m_bounds.intersectsPlane(Vector(0, planY, 0), Vector(0, 1, 0))) {
+		return false; 
+	}
+	for (const auto& vertex : box.getTransformedVertices()) {
+		if (vertex.y < planY) {
+			return true;
+		}
+	}
+	return false;
+}
 
+void Collision::groundCollisionResolve(Boite& box, float planY) {
+	auto vertices = box.getTransformedVertices();
+	Vector normalVector(0, 1, 0); 
 
+	for (const auto& vertex : vertices) {
+		if (vertex.y < planY) {
+			float penetration = planY - vertex.y;
+			box.setPosition(box.getPosition() + normalVector * penetration);
+			Vector velocity = box.getLinearVelocity();
+			float impulsionMagnitude = (1.3 * velocity.dotProduct(normalVector)) / box.getMass();
+			box.setLinearVelocity(velocity - (normalVector * impulsionMagnitude));
+		}
+	}
+}

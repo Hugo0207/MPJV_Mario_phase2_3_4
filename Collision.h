@@ -2,6 +2,8 @@
 
 #include "Vector.h"
 #include "Particle.h"
+#include "Boite.h"
+#include "OctreeNode.h"
 
 class Collision
 {
@@ -31,4 +33,7 @@ public:
 
 	void groundCollisionResolve(Particle* particle);
 
+	bool groundCollisionDetectBox(const Boite& box, float planY, const OctreeNode& octree);
+
+	void groundCollisionResolve(Boite& box, float planY);
 };

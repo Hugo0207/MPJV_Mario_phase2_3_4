@@ -1,61 +1,61 @@
-#pragma once
+ï»¿#pragma once
+#include "Quaternion.h"
+#include <cmath>
+#include <stdexcept>
 #include "Vector.h"
-#include "QuaternionTest.h"
 #include "Matrice.h"
+
+// DÃ©finition de PI 
+#ifndef PI
+#define PI 3.14159265358979323846
+#endif
 
 class Quaternion
 {
-private:
-	float w;
-	Vector xyzVector;
-
-	// Constructeur utilisé pour les opérations intra-classe
-	static Quaternion* createQuat(float w, Vector xyzVector);
-
 public:
-	// Constructeur public
-	Quaternion(float rotationAngle, Vector rotationAxis); // L'angle de rotation est attendu en degrés
+    float w;
+    Vector xyzVector;
 
-	// Norme du quaternion
-	float norm() const;
+    // Constructeurs
+    Quaternion() : w(1.0f), xyzVector(1.0f, 1.0f, 1.0f) {}
+    Quaternion(float w, const Vector& xyzVector); // Constructeur avec composantes
 
-	// Inverse/Conjugué du quaternion, donne le même angle de rotation, mais avec une inversion du sens de rotation
-	Quaternion* inverse() const;
+    // MÃ©thode statique pour crÃ©er un quaternion Ã  partir d'un angle et d'un axe
+    static Quaternion fromAxisAngle(float rotationAngle, const Vector& rotationAxis);
 
-	// Négation du quaternion, donne le même déplacement angulaire
-	Quaternion* negate() const;
+    // MÃ©thodes
+    float norm() const;
+    Quaternion normalize() const;
+    Quaternion conjugate() const;
+    Quaternion inverse() const;
 
-	// Multiplication de deux quaternions
-	Quaternion* multiply(Quaternion* other) const;
+    Quaternion operator+(const Quaternion& other) const;
+    Quaternion& operator+=(const Quaternion& other);
 
-	// Application d'une rotation définie par ce quaternion à un vecteur
-	Vector applyRotation(Vector* target) const;
+    Quaternion operator*(const Quaternion& other) const;
+    Quaternion& operator*=(const Quaternion& other);
 
-	// Représente le déplacement angulaire entre deux quaternions
-	Quaternion* difference(Quaternion* other) const;
+    Quaternion operator*(float scalar) const;
+    Quaternion& operator*=(float scalar);
+    Quaternion operator/(float scalar) const;
+    Quaternion& operator/=(float scalar);
+    Quaternion operator-() const;
 
-	// Produit scalaire, plus il est grand, plus les deux quaternions décrivent des rotations similaires
-	float dotProduct(Quaternion* other) const;
+    float dotProduct(const Quaternion& other) const;
 
-	// Exponentiation, représente la fraction donnée "t" du déplacement angulaire initiale
-	Quaternion* exponentiation(float t) const;
+    Vector applyRotation(const Vector& target) const;
 
-	// Permet d'obtenir l'angle de la rotation représenté par le quaternion (en degrés)
-	float getRotationAngle();
+    Quaternion exponentiation(float t) const;
 
-	// Permet d'obtenir l'axe de la rotation représenté par le quaternion
-	Vector getRotationAxis();
+    float getRotationAngle() const;
+    Vector getRotationAxis() const;
 
-	// Permet de modifier l'angle de rotation représenté par le quaternion (en degrés)
-	void setRotationAngle(float angle);
+    void setRotationAngle(float angle);
+    void setRotationAxis(const Vector& axis);
 
-	// Permet de modifier l'axe de rotation représenté par le quaternion
-	void setRotationAxis(Vector axis);
+    Matrice<3> convertToMatrix() const;
 
-	// Permet de convertir le quaternion en une matrice 3x3
-	Matrice<3> convertToMatrix() const;
-
-	friend class QuaternionTest;
-
+private:
+    // MÃ©thode privÃ©e pour Ã©viter la redondance
+    static Quaternion createQuat(float w, const Vector& xyzVector);
 };
-
