@@ -18,18 +18,15 @@ public:
 
 	Collision(float restitutionCoeff, Vector gravity);
 
-
 	void update(std::vector<CorpsRigide*> corpsRigides, std::vector<Plane*> planes, float deltaTime);
 
 	bool detect(CorpsRigide* crA, CorpsRigide* crB);
 
-	bool isRestContact(Particle* pA, Particle* pB, float deltaTime);
+	bool isRestContact(CorpsRigide* crA, CorpsRigide* crB, float deltaTime);
 
-	Vector impactPoint(Particle* pA, Particle* pB);
+	void proportionalDetach(CorpsRigide* crA, CorpsRigide* crB);
 
-	void proportionalDetach(Particle* pA, Particle* pB);
-
-	void resolve(CorpsRigide* pA, CorpsRigide* pB);
+	void resolve(CorpsRigide* pA, CorpsRigide* pB) const;
 
 	bool planeCollisionDetectBox(const Boite* box, const Plane* plane);
 

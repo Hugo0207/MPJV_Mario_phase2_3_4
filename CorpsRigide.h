@@ -100,4 +100,6 @@ public:
 
     void addPositionHistory(const Vector& position);
     std::vector<Vector> getPositionsHistory() const;
+
+    Vector getNormalVector(const CorpsRigide* otherCorpsRigide);
 };

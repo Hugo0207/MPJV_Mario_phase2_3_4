@@ -34,12 +34,12 @@ void ofApp::setup()
     cubeMaterial.setDiffuseColor(ofColor(200, 0, 0, 150)); // Rouge pour bien voir la rotation
 
     // Configuration de la salle de jeu
-    world->addPlane(new Plane(Vector(0,-1,0), Vector(0,10,0)));
-    world->addPlane(new Plane(Vector(0,1,0), Vector(0,-5,0)));
-    world->addPlane(new Plane(Vector(-1,0,0), Vector(15,-10,0)));
-    world->addPlane(new Plane(Vector(1,0,0), Vector(-15,-10,0)));
-    world->addPlane(new Plane(Vector(0,0,1), Vector(0,-10,15)));
-    world->addPlane(new Plane(Vector(0,0,-1), Vector(0,-10,-15)));
+    world->addPlane(new Plane(Vector(0,-1,0), Vector(0,10,0), 0.7f));
+    world->addPlane(new Plane(Vector(0,1,0), Vector(0,-5,0), 0.4f));
+    world->addPlane(new Plane(Vector(-1,0,0), Vector(15,0,0), 0.7f));
+    world->addPlane(new Plane(Vector(1,0,0), Vector(-15,0,0), 0.7f));
+    world->addPlane(new Plane(Vector(0,0,-1), Vector(0,0,15), 0.7f));
+    world->addPlane(new Plane(Vector(0,0,1), Vector(0,0,-15), 0.7f));
 
     // Active la profondeur
     ofEnableDepthTest();

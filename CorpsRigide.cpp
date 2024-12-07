@@ -10,13 +10,13 @@ CorpsRigide::CorpsRigide()
     position = Vector();
     linearVelocity = Vector();
     linearAcceleration = Vector();
-    dampingLinear = 0.99f; // Valeur par d�faut pour le damping lin�aire
+    dampingLinear = 0.80f; // Valeur par d�faut pour le damping lin�aire
 
     // Mouvement angulaire initialis� � z�ro
     orientation = Quaternion(0.0f, Vector(0.0f, 0.0f, 1.0f));
     angularVelocity = Vector();
     angularAcceleration = Vector();
-    dampingAngular = 0.99f; // Valeur par d�faut pour le damping angulaire
+    dampingAngular = 0.80f; // Valeur par d�faut pour le damping angulaire
 
     // Tenseurs d'inertie initialis�s � l'identit�
     inertiaTensorLocal = Matrice<3>({
@@ -271,5 +271,10 @@ void CorpsRigide::addPositionHistory(const Vector& position)
 std::vector<Vector> CorpsRigide::getPositionsHistory() const
 {
     return positionsHistory;
+}
+
+Vector CorpsRigide::getNormalVector(const CorpsRigide* otherCorpsRigide)
+{
+    return (otherCorpsRigide->position - this->position) / (otherCorpsRigide->position - this->position).norm();
 }
 

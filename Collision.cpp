@@ -23,13 +23,17 @@ void Collision::update(std::vector<CorpsRigide*> corpsRigides, std::vector<Plane
 		{
 			if (detect(*cr1, *cr2))
 			{
-				resolve(*cr1, *cr2);
+				// On resout la collision ssi elle n'est pas detectee au repos
+				if (!isRestContact(*cr1, *cr2, deltaTime)) {
+					resolve(*cr1, *cr2);
+				}
 			}
 		}
 	}
 
 	for (auto cr = corpsRigides.begin(); cr != corpsRigides.end(); cr++)
 	{
+		// Cas d'une boite
 		Boite* box = dynamic_cast<Boite*>(*cr);
 		if (box)
 		{
@@ -66,10 +70,10 @@ bool Collision::detect(CorpsRigide* crA, CorpsRigide* crB) {
 		return false;
 	}
 
+	// SAT
 	// Axes a tester
 	std::vector<Vector> axes;
-
-	// Ajout des normales des faces de chaque boite, extractees depuis la matrice de transformation
+	// Ajout des normales des faces de chaque boite, extraites depuis la matrice de transformation
 	Matrice<4> transformA = boxA->getTransformMatrix();
 	Matrice<4> transformB = boxB->getTransformMatrix();
 	for (int i = 0; i < 3; ++i) {
@@ -117,71 +121,67 @@ bool Collision::detect(CorpsRigide* crA, CorpsRigide* crB) {
 		}
 	}
 
-	// Pas d'axe de séparation, les boites collisionnent
+	// Pas d'axe de séparation, les boites collisionnent, on separe les boites
+	proportionalDetach(crA, crB);
 	return true;
 }
 
-// Point d'impact entre deux particules entrant en collision
-Vector Collision::impactPoint(Particle* pA, Particle* pB) {
-
-	Vector impact;
-
-	impact = pA->position + pA->position * pA->get_radius();
-
-	return impact;
-}
-
 // Verifie si la collision trouvee est un contact au repos
-bool Collision::isRestContact(Particle* pA, Particle* pB, float deltaTime)
+bool Collision::isRestContact(CorpsRigide* crA, CorpsRigide* crB, float deltaTime)
 {
-	Vector normalVector = pA->normalVector(pB);
+	Vector normalVector = crA->getNormalVector(crB);
 	Vector gravityProjectionToNormal = (gravity * deltaTime).projectTo(normalVector);
-	Vector p1VelocityProjectionToNormal = pA->velocity.projectTo(normalVector);
-	Vector p2VelocityProjectionToNormal = pB->velocity.projectTo(normalVector);
+	Vector crAVelocityProjectionToNormal = crA->getLinearVelocity().projectTo(normalVector);
+	Vector crBVelocityProjectionToNormal = crB->getLinearVelocity().projectTo(normalVector);
 
-	bool isP1Stationary = p1VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
-	bool isP2Stationary = p2VelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+	bool isCrAStationary = crAVelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
+	bool isCr2Stationary = crBVelocityProjectionToNormal.norm() < gravityProjectionToNormal.norm();
 
-	return isP1Stationary && isP2Stationary;
+	return isCrAStationary && isCr2Stationary;
 }
 
 
-// Separe les deux particules après la collision
-void Collision::proportionalDetach(Particle* pA, Particle* pB) {
-	float penetration = (pA->get_radius() + pB->get_radius()) - pA->distance(pB);
+// Separe les deux corps rigides après la collision
+void Collision::proportionalDetach(CorpsRigide* crA, CorpsRigide* crB) {
+
+	Sphere* boundingSphereA = crA->getBoundingSphere();
+	Sphere* boundingSphereB = crB->getBoundingSphere();
+
+	float penetration = (boundingSphereA->radius + boundingSphereB->radius) - boundingSphereA->distanceTo(boundingSphereB);
 
 	float separationMagnitude = 0;
 
-	if (pB->getMass() > 0)
+	if (crB->getMass() > 0)
 	{
-		separationMagnitude = (pB->getMass() / (pA->getMass() + 1 / pB->getMass())) * penetration;
+		separationMagnitude = (crB->getMass() / (crA->getMass() + 1 / crB->getMass())) * penetration;
 	}
 
-	Vector normalVector = pA->normalVector(pB);
+	Vector normalVector = crA->getNormalVector(crB);
 
-	Vector posA = pA->position - normalVector * separationMagnitude;
-	Vector posB = pB->position + normalVector * separationMagnitude;
+	Vector posA = crA->getPosition() - normalVector * separationMagnitude;
+	Vector posB = crB->getPosition() + normalVector * separationMagnitude;
 
 
-	pA->position = posA;
-	pB->position = posB;
+	crA->setPosition(posA);
+	crB->setPosition(posB);
 }
 
 /*
 * Resout une collision entre un couple de corps rigides a l'aide d'impulsions
 */
-void Collision::resolve(CorpsRigide* cr1, CorpsRigide* cr2) {
+void Collision::resolve(CorpsRigide* cr1, CorpsRigide* cr2) const {
 
-	/*Vector normalVector = pA->normalVector(pB);
+	Vector normalVector = cr1->getNormalVector(cr2);
 
-	Vector resultingVelocity = pA->velocity - pB->velocity;
+	Vector resultingVelocity = cr1->getLinearVelocity() - cr2->getLinearVelocity();
 
-	float impulsionMagnitude = ((restitutionCoeff + 1) * resultingVelocity.dotProduct(normalVector)) / (pA->getInverseMass() + pB->getInverseMass());
+	float impulsionMagnitude = ((restitutionCoeff + 1) * resultingVelocity.dotProduct(normalVector)) / ((1 / cr1->getMass()) + (1 / cr2->getMass()));
 
-	pA->velocity = pA->velocity - ((normalVector * impulsionMagnitude) / pA->getMass());
-	pB->velocity = pB->velocity + ((normalVector * impulsionMagnitude) / pB->getMass());*/
+	cr1->setLinearVelocity(cr1->getLinearVelocity() - ((normalVector * impulsionMagnitude) / cr1->getMass()));
+	cr2->setLinearVelocity(cr2->getLinearVelocity() + ((normalVector * impulsionMagnitude) / cr2->getMass()));
 }
 
+// Verifie la collision entre une boite et un plan
 bool Collision::planeCollisionDetectBox(const Boite* box, const Plane* plane) {
 
 	bool hasCrossed = false;
@@ -204,37 +204,64 @@ bool Collision::planeCollisionDetectBox(const Boite* box, const Plane* plane) {
 	return false;
 }
 
+// Rend la distance de penetration signee entre uen boite et un plan
 float Collision::getPenetrationBoxPlane(const Boite* box, const Plane* plane)
 {
 	// Recuperer les sommets transformes de la boite
 	auto vertices = box->getTransformedVertices();
+	auto negativeDist = std::vector<float>();
+	auto positiveDist = std::vector<float>();
 
-	float max = 0;
-
+	// On remplit les listes des distances positives et negatives
 	for (const auto& vertex : vertices)
 	{
-		float distanceTo = std::abs(plane->signedDistanceTo(vertex));
-		distanceTo > max ? max = distanceTo : max = max;
+		float signedDistanceTo = plane->signedDistanceTo(vertex);
+		float distanceTo = std::abs(signedDistanceTo);
+		signedDistanceTo < 0 ? negativeDist.push_back(distanceTo) : positiveDist.push_back(distanceTo);
 	}
 
+	// On parcourt la liste la plus petite et on retourne la distance signee entre le sommet le plus penetrant et le plan
+	float max = 0;
+	if (positiveDist.size() >= negativeDist.size())
+	{
+		for (const auto& dist : negativeDist)
+		{
+			dist > max? max = -dist : max = max;
+		}
+	}
+	else
+	{
+		for (const auto& dist : positiveDist)
+		{
+			dist > max ? max = dist : max = max;
+		}
+	}
 	return max;
 }
 
+// Resout la collision en tre un plan et un corps rigide
 void Collision::planeCollisionResolve(CorpsRigide* corpsRigide, Plane* plane) { 
 
 	float penetration = 0.f;
 
+	// Cas d'une boite
 	Boite* box = dynamic_cast<Boite*>(corpsRigide);
 	if (box)
 	{
 		penetration = getPenetrationBoxPlane(box, plane);
 	}
 
-	Vector posCorpsRigide = corpsRigide->getPosition() + plane->normalVector * penetration;
+	Vector posCorpsRigide = corpsRigide->getPosition() - plane->normalVector * penetration;
 
 	corpsRigide->setPosition(posCorpsRigide);
 
-	float impulsionMagnitude = ((1.3) * corpsRigide->getLinearVelocity().dotProduct(plane->normalVector)) * corpsRigide->getMass();
+	float impulsionMagnitude = ((1 + plane->restitutionCoeff) * corpsRigide->getLinearVelocity().dotProduct(plane->normalVector)) * corpsRigide->getMass();
 
 	corpsRigide->setLinearVelocity(corpsRigide->getLinearVelocity() - ((plane->normalVector * impulsionMagnitude) / corpsRigide->getMass()));
+
+	// Si la vitesse est en dessous de 0.1, on arrete l'objet
+	if (corpsRigide->getLinearVelocity().norm() < 0.1)
+	{
+		corpsRigide->setLinearVelocity(Vector(0, 0, 0));
+	}
 }

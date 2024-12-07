@@ -2,7 +2,7 @@
 #include "Boite.h"
 #include <iostream>
 
-World::World(float deltaTime) : deltaTime(deltaTime), collisionSystem(Collision(1., Vector(0., -9.81, 0.))), octree(&OctreeNode()) {}
+World::World(float deltaTime) : deltaTime(deltaTime), collisionSystem(Collision(0.9, Vector(0., -9.81, 0.))), octree(&OctreeNode()) {}
 
 
 void World::addRigidBody(CorpsRigide* rigidBody)

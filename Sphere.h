@@ -3,6 +3,7 @@
 
 class OctreeNode;
 
+// Classe representant une sphere
 class Sphere
 {
 	public:
@@ -12,5 +13,6 @@ class Sphere
 		Sphere();
 		Sphere(float radius, Vector center);
 		bool collides(Sphere* otherSphere);
+		float distanceTo(Sphere* otherSphere) const;
 };
 
