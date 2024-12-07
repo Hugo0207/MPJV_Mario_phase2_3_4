@@ -2,6 +2,8 @@
 #include "Vector.h"
 #include "Quaternion.h"
 #include "Matrice.h"
+#include "Sphere.h"
+#include "Plane.h"
 
 class CorpsRigide
 {
@@ -42,12 +44,16 @@ private:
     // Position historique (pour la visualisation)
     std::vector<Vector> positionsHistory;
 
-
+protected:
+    Sphere* boundingSphere;
 
 public:
     // Constructeur par d�faut
     CorpsRigide();
     virtual ~CorpsRigide() = default;
+
+    virtual void createBoundingSphere();
+    Sphere* getBoundingSphere() const;
 
     // Gestion de la masse
     void setMass(float mass);

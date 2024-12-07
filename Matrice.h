@@ -275,6 +275,14 @@ public:
         return inverseMatrix;
     }
 
+    Vector getColumn(size_t col) const {
+        static_assert(N == 4, "Column extraction is valid only for 4x4 matrices.");
+        if (col >= N) {
+            throw std::out_of_range("Column index out of range.");
+        }
+        return Vector(values[0][col], values[1][col], values[2][col]);
+    }
+
 private:
     // get a subMatrix in deleting a row and a colonne
     Matrice<N - 1> getSubMatrix(int skipRow, int skipCol) const{
@@ -314,7 +322,7 @@ private:
         size_t minorRow = 0;
         for (size_t i = 0; i < N; ++i) {
             if (i == row_to_remove) continue;
-            size_t minorCol = 0;
+            //size_t minorCol = 0;
             for (size_t j = 0; j < N; ++j) {
                 if (j == col_to_remove) continue;
                 minor.values[minorRow][minorCol] = values[i][j];

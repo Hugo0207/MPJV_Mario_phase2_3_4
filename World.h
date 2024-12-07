@@ -3,12 +3,17 @@
 #include "CorpsRigide.h"
 #include "RigidBodyForceRegistry.h"
 #include "OctreeNode.h"
+#include "Collision.h"
+#include "Plane.h"
 
 class World
 {
 private:
     std::vector<CorpsRigide*> rigidBodies;
+    std::vector<Plane*> planes;
     RigidBodyForceRegistry forceRegistry;
+    Collision collisionSystem;
+
     float deltaTime;
 
 public:
@@ -17,6 +22,10 @@ public:
     // Gestion des corps rigides
     void addRigidBody(CorpsRigide* rigidBody);
     void removeRigidBody(CorpsRigide* rigidBody);
+
+    // Gestion des plans
+    void addPlane(Plane* plane);
+    void removePlane(Plane* plane);
 
     // Gestion des forces
     void addForceGenerator(CorpsRigide* rigidBody, RigidBodyForceGenerator* fg);
@@ -27,11 +36,11 @@ public:
     void updateOctree();
     OctreeNode* octree;
 
-    //Détection des collisions
-    void detectCollisions();
-
     // Acc�s aux corps rigides
     const std::vector<CorpsRigide*>& getRigidBodies() const;
+
+    // Acc�s aux plans
+    const std::vector<Plane*>& getPlanes() const;
 
     // Accesseurs
     float getDeltaTime() const { return deltaTime; }

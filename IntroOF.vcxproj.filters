@@ -85,6 +85,12 @@
     <ClCompile Include="QuaternionTest.cpp">
       <Filter>src\TestOperator</Filter>
     </ClCompile>
+    <ClCompile Include="Boite.cpp" />
+    <ClCompile Include="CorpsRigide.cpp" />
+    <ClCompile Include="OctreeNode.cpp" />
+    <ClCompile Include="RigidBodyForceRegistry.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -206,6 +212,13 @@
     <ClInclude Include="QuaternionTest.h">
       <Filter>src\TestOperator</Filter>
     </ClInclude>
+    <ClInclude Include="Boite.h" />
+    <ClInclude Include="CorpsRigide.h" />
+    <ClInclude Include="OctreeNode.h" />
+    <ClInclude Include="RigidBodyForceGenerator.h" />
+    <ClInclude Include="RigidBodyForceRegistry.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Plane.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

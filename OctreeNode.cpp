@@ -1,11 +1,11 @@
 #include "OctreeNode.h"
-Object::Object(Vector center, float radius) : center(center), radius(radius) {}
+
 BoundingBox::BoundingBox(const Vector& min, const Vector& max)
 {
 	m_min = min;
 	m_max = max;
 }
-bool BoundingBox::IsContainingObject(Object* object)
+bool BoundingBox::IsContainingObject(Sphere* object)
 {
 	const Vector& center = object->center;
 	float radius = object->radius;
@@ -13,6 +13,14 @@ bool BoundingBox::IsContainingObject(Object* object)
 		(center.y + radius >= m_min.y && center.y - radius <= m_max.y) &&
 		(center.z + radius >= m_min.z && center.z - radius <= m_max.z);
 }
+OctreeNode::OctreeNode()
+{
+	BoundingBox nullBounds(Vector(0, 0, 0), Vector(0, 0, 0));
+	m_bounds = nullBounds;
+
+	for (int i = 0; i < 8; i++) children[i] = nullptr;
+}
+
 OctreeNode::OctreeNode(const BoundingBox& bounds)
 {
 	m_bounds = bounds;
@@ -35,9 +43,9 @@ void OctreeNode::Split()
 	children[6] = new OctreeNode(BoundingBox(Vector(min.x, mid.y, mid.z), Vector(mid.x, max.y, max.z)));
 	children[7] = new OctreeNode(BoundingBox(mid, max));
 }
-void OctreeNode::Insert(Object* obj)
+void OctreeNode::Insert(Sphere* obj)
 {
-	//if there is children, distribute objecte in childrens
+	//if there are children, distribute objects in children
 	if (children[0] != nullptr)
 	{
 		Distribute(obj);
@@ -45,16 +53,20 @@ void OctreeNode::Insert(Object* obj)
 	}
 	//else push back in the object vector 
 	m_objects.push_back(obj);
-	// if size of the vector taller thant max objects
+	obj->currentOctree = this;
+	// if size of the vector taller than max objects
 	// split octreenode in children and distribute objects in them
 	if (m_objects.size() > MAX_OBJECTS)
 	{
 		Split();
-		for (Object* object : m_objects) Distribute(object);
+		for (Sphere* object : m_objects)
+		{
+			Distribute(object);
+		}
 		m_objects.clear();
 	}
 }
-void OctreeNode::Distribute(Object* obj)
+void OctreeNode::Distribute(Sphere* obj)
 {
 	for (int i = 0; i < 8; i++) {
 		if (children[i]->m_bounds.IsContainingObject(obj)) {
@@ -72,7 +84,7 @@ void OctreeNode::Display(int depth) {
 	std::cout << indent << "  Objects: " << m_objects.size() << "\n";
 
 	//show center of the objects
-	for (Object* object : m_objects)
+	for (Sphere* object : m_objects)
 	{
 		std::cout << indent << "    [" << object->center.x << ", " << object->center.y << ", " << object->center.z << "]\n";
 	}

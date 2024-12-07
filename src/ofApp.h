@@ -62,7 +62,4 @@ private:
     ofParameter<float> forceAzimuth;    // Angle  (azimut)
     ofParameter<float> forceElevation;  // Angle  (�l�vation)
     bool showGui;
-
-    ofPlanePrimitive groundPlane;
-    ofMaterial groundMaterial;
 };

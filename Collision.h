@@ -4,6 +4,8 @@
 #include "Particle.h"
 #include "Boite.h"
 #include "OctreeNode.h"
+#include "CorpsRigide.h"
+#include "OctreeNode.h"
 
 class Collision
 {
@@ -17,9 +19,9 @@ public:
 	Collision(float restitutionCoeff, Vector gravity);
 
 
-	void update(std::vector<Particle*> Particles, float deltaTime);
+	void update(std::vector<CorpsRigide*> corpsRigides, std::vector<Plane*> planes, float deltaTime);
 
-	bool detect(Particle* pA, Particle* pB);
+	bool detect(CorpsRigide* crA, CorpsRigide* crB);
 
 	bool isRestContact(Particle* pA, Particle* pB, float deltaTime);
 
@@ -27,13 +29,11 @@ public:
 
 	void proportionalDetach(Particle* pA, Particle* pB);
 
-	void resolve(Particle* pA, Particle* pB);
+	void resolve(CorpsRigide* pA, CorpsRigide* pB);
 
-	bool groundCollisionDetect(Particle* particle);
+	bool planeCollisionDetectBox(const Boite* box, const Plane* plane);
 
-	void groundCollisionResolve(Particle* particle);
+	float getPenetrationBoxPlane(const Boite* box, const Plane* plane);
 
-	bool groundCollisionDetectBox(const Boite& box, float planY, const OctreeNode& octree);
-
-	void groundCollisionResolve(Boite& box, float planY);
+	void planeCollisionResolve(CorpsRigide* corpsRigide, Plane* plane);
 };

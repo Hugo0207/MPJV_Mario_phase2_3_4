@@ -4,6 +4,9 @@ Boite::Boite(float width, float height, float depth)
     : width(width), height(height), depth(depth)
 {
     calculateDerivedData();
+
+    // Creation de la sphere englobante
+    createBoundingSphere();
 }
 
 void Boite::setDimensions(float width, float height, float depth)
@@ -39,4 +42,9 @@ std::array<Vector, 8> Boite::getTransformedVertices() const
 void Boite::calculateDerivedData()
 {
     CorpsRigide::calculateDerivedData();
+}
+
+void Boite::createBoundingSphere()
+{
+    this->boundingSphere = new Sphere(width*sqrt(3)/2, this->getPosition());
 }

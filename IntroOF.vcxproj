@@ -104,16 +104,22 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Boite.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CorpsRigide.cpp" />
     <ClCompile Include="ElasticSpringGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="ForceRegistry.cpp" />
     <ClCompile Include="FrictionGenerator.cpp" />
     <ClCompile Include="GravityGenerator.cpp" />
+    <ClCompile Include="OctreeNode.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="RigidBodyForceRegistry.cpp" />
     <ClCompile Include="RigidSpringGenerator.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SpringGenerator.cpp" />
     <ClCompile Include="SpringHooke1Generator.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -134,17 +140,24 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Boite.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CorpsRigide.h" />
     <ClInclude Include="ElasticSpringGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceRegistry.h" />
     <ClInclude Include="FrictionGenerator.h" />
     <ClInclude Include="GravityGenerator.h" />
     <ClInclude Include="Matrice.h" />
+    <ClInclude Include="OctreeNode.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Plane.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="QuaternionTest.h" />
+    <ClInclude Include="RigidBodyForceGenerator.h" />
+    <ClInclude Include="RigidBodyForceRegistry.h" />
     <ClInclude Include="RigidSpringGenerator.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="SpringGenerator.h" />
     <ClInclude Include="SpringHooke1Generator.h" />
     <ClInclude Include="src\ofApp.h" />

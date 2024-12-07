@@ -14,4 +14,6 @@ public:
     std::array<Vector, 8> getTransformedVertices() const;
 
     void calculateDerivedData() override;
+
+    void createBoundingSphere() override;
 };

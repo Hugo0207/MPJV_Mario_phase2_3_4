@@ -33,11 +33,13 @@ void ofApp::setup()
     cubeMaterial.setShininess(64);
     cubeMaterial.setDiffuseColor(ofColor(200, 0, 0, 150)); // Rouge pour bien voir la rotation
 
-    groundMaterial.setShininess(64);
-    groundMaterial.setDiffuseColor(ofColor(100, 100, 100)); // Gris pour le sol
-
-    groundPlane.set(50, 50); // Taille du plan, subdivisé en 100x100 pour une meilleure qualité de texture
-    groundPlane.rotateDeg(-90, 1, 0, 0); // Rotation du plan pour etre sur le plan XZ
+    // Configuration de la salle de jeu
+    world->addPlane(new Plane(Vector(0,-1,0), Vector(0,10,0)));
+    world->addPlane(new Plane(Vector(0,1,0), Vector(0,-5,0)));
+    world->addPlane(new Plane(Vector(-1,0,0), Vector(15,-10,0)));
+    world->addPlane(new Plane(Vector(1,0,0), Vector(-15,-10,0)));
+    world->addPlane(new Plane(Vector(0,0,1), Vector(0,-10,15)));
+    world->addPlane(new Plane(Vector(0,0,-1), Vector(0,-10,-15)));
 
     // Active la profondeur
     ofEnableDepthTest();
@@ -47,7 +49,7 @@ void ofApp::setup()
     camera.setFarClip(1000.0f);
 
     // Positionne la caméra pour une vue isométrique
-    float camDistance = 10.0f;
+    float camDistance = 7.5f;
     camera.setPosition(camDistance, camDistance, camDistance);
     camera.lookAt(ofVec3f(0, 0, 0)); // La caméra regarde le centre de la scène
 
@@ -88,7 +90,7 @@ void ofApp::setup()
 void ofApp::setupScene()
 {
     // Crée le générateur de gravité
-    gravityGenerator = new GravityGenerator(Vector(0.0f, -9.81f, 0.0f));
+    gravityGenerator = new GravityGenerator(Vector(0, -9.81f, 0));
 
     // Initialise le modèle du cube
     cubeMesh.set(1.0f); // Cube de côté 1 unité
@@ -105,8 +107,6 @@ void ofApp::update()
 
     world->setDeltaTime(deltaTime);
     world->update();
-    world->updateOctree();
-    world->detectCollisions();
 
     const std::vector<CorpsRigide*>& rigidBodies = world->getRigidBodies();
     for (auto rigidBody : rigidBodies)
@@ -131,20 +131,11 @@ void ofApp::draw()
     pointLight.enable();
     directionalLight.enable();
 
-    // **Dessine le sol dans le plan XZ**
-    ofPushMatrix();
-
-    ofTranslate(0, -10, 0);
-    groundMaterial.begin();
-
-    // Dessine le sol
-    groundPlane.draw();
-
-    // Termine le matériau
-    groundMaterial.end();
-
-
-    ofPopMatrix();
+    // Dessine les plans
+    for (auto& plane : world->getPlanes())
+    {
+        plane->draw();
+    }
 
     // Dessine les corps rigides
     const std::vector<CorpsRigide*>& rigidBodies = world->getRigidBodies();

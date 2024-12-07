@@ -1,20 +1,15 @@
 #pragma once
-#include "ForceGenerator.h"
 #include "Vector.h"
 
-class GravityGenerator : public ForceGenerator
+#include "RigidBodyForceGenerator.h"
+
+class GravityGenerator : public RigidBodyForceGenerator
 {
-public:
-	Vector gravity;
+private:
+    Vector gravity;
 
 public:
-	// Constructors
-	GravityGenerator();
-	GravityGenerator(float gravityMagnitude);
+    GravityGenerator(const Vector& gravity);
 
-	// Add gravity to the selected particle resulting force
-	virtual void updateForce(Particle* particle, float duration);
-
-	
+    void updateForce(CorpsRigide* rigidBody, float deltaTime) override;
 };
-

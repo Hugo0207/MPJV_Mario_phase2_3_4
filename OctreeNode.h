@@ -1,11 +1,7 @@
 #pragma once
 #include "Vector.h"
-class Object {
-public:
-	Vector center;
-	float radius;
-	Object(Vector center, float radius);
-};
+#include "Sphere.h"
+
 //Box representing the space of the world that will be devise un smaller box if needs
 class BoundingBox {
 public:
@@ -13,27 +9,28 @@ public:
 	BoundingBox() : m_min(Vector()), m_max(Vector()) {}
 	BoundingBox(const Vector& min, const Vector& max);
 	//
-	bool IsContainingObject(Object* object);
+	bool IsContainingObject(Sphere* object);
 	bool intersectsPlane(const Vector& planePoint, const Vector& planeNormal) const;
 };
 //node of the octree
 class OctreeNode
 {
 public:
+	OctreeNode();
 	OctreeNode(const BoundingBox& bounds);
 	//Insert an object in the node
-	void Insert(Object* obj);
+	void Insert(Sphere* obj);
 	//display all informations of the OctreeNode and its childs
 	void Display(int depth = 0);
 	//box representing this node
 	BoundingBox m_bounds;
 private:
 	//objects contain in this node
-	std::vector<Object*> m_objects;
-	//childs of this node
+	std::vector<Sphere*> m_objects;
+	//children of this node
 	OctreeNode* children[8];
-	static const int MAX_OBJECTS = 2;
-	void Distribute(Object* obj);
+	static const int MAX_OBJECTS = 4;
+	void Distribute(Sphere* obj);
 	void Split();
 };
 /* exemple of utilisation :

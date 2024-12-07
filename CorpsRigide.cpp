@@ -34,6 +34,16 @@ CorpsRigide::CorpsRigide()
     calculateDerivedData();
 }
 
+void CorpsRigide::createBoundingSphere()
+{
+    boundingSphere = new Sphere(0.f, this->getPosition());
+}
+
+Sphere* CorpsRigide::getBoundingSphere() const
+{
+    return boundingSphere;
+}
+
 
 // Gestion de la masse
 
@@ -85,6 +95,7 @@ Matrice<3> CorpsRigide::getInertiaTensor() const
 void CorpsRigide::setPosition(const Vector& position)
 {
     this->position = position;
+    this->boundingSphere->center = position;
 }
 
 Vector CorpsRigide::getPosition() const
@@ -115,6 +126,7 @@ void CorpsRigide::integrate(float deltaTime)
 
     // Mise � jour de la position lin�aire
     position += linearVelocity * deltaTime;
+    boundingSphere->center = position;
 
     // Calcul de l'acc�l�ration r�sultante
     Vector resultingAcc = linearAcceleration;
