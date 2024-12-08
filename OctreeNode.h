@@ -8,6 +8,7 @@ public:
 	Vector m_min, m_max;
 	BoundingBox() : m_min(Vector()), m_max(Vector()) {}
 	BoundingBox(const Vector& min, const Vector& max);
+	void draw();
 	//
 	bool IsContainingObject(Sphere* object);
 	bool intersectsPlane(const Vector& planePoint, const Vector& planeNormal) const;
@@ -22,6 +23,8 @@ public:
 	void Insert(Sphere* obj);
 	//display all informations of the OctreeNode and its childs
 	void Display(int depth = 0);
+
+	void draw();
 	//box representing this node
 	BoundingBox m_bounds;
 private:

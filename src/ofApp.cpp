@@ -135,6 +135,7 @@ void ofApp::draw()
     for (auto& plane : world->getPlanes())
     {
         plane->draw();
+
     }
 
     // Dessine les corps rigides
@@ -222,6 +223,10 @@ void ofApp::draw()
             );
         }
     }
+    ofSetColor(0, 0, 0);
+    ofSetLineWidth(50);
+
+    world->drawOctree();
 
     // Désactive les lumières
     pointLight.disable();

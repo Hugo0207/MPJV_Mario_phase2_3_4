@@ -70,6 +70,10 @@ void World::updateOctree() {
         Sphere* boundingSphere = rigidBody->getBoundingSphere();
         octree->Insert(boundingSphere);
     }
-    //octree->Display();
+}
+
+void World::drawOctree()
+{
+    octree->draw();
 }
 

@@ -87,10 +87,12 @@
     </ClCompile>
     <ClCompile Include="Boite.cpp" />
     <ClCompile Include="CorpsRigide.cpp" />
-    <ClCompile Include="OctreeNode.cpp" />
     <ClCompile Include="RigidBodyForceRegistry.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="OctreeNode.cpp">
+      <Filter>src\Operateur</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -214,11 +216,13 @@
     </ClInclude>
     <ClInclude Include="Boite.h" />
     <ClInclude Include="CorpsRigide.h" />
-    <ClInclude Include="OctreeNode.h" />
     <ClInclude Include="RigidBodyForceGenerator.h" />
     <ClInclude Include="RigidBodyForceRegistry.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="OctreeNode.h">
+      <Filter>src\Operateur</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

@@ -13,6 +13,37 @@ bool BoundingBox::IsContainingObject(Sphere* object)
 		(center.y + radius >= m_min.y && center.y - radius <= m_max.y) &&
 		(center.z + radius >= m_min.z && center.z - radius <= m_max.z);
 }
+
+//draw the edge of the boudingBox
+void BoundingBox::draw()
+{
+	//define all the vertices of the box
+	Vector vertices[8] = {
+	m_min,
+	{m_max.x, m_min.y, m_min.z},
+	{m_max.x, m_max.y, m_min.z},
+	{m_min.x, m_max.y, m_min.z},
+	{m_min.x, m_min.y, m_max.z},
+	{m_max.x, m_min.y, m_max.z},
+	m_max,
+	{m_min.x, m_max.y, m_max.z}
+	};
+
+	//define the edges btwn vertices
+	int edges[12][2] = {
+		{0, 1}, {1, 2}, {2, 3}, {3, 0},
+		{4, 5}, {5, 6}, {6, 7}, {7, 4},
+		{0, 4}, {1, 5}, {2, 6}, {3, 7} 
+	};
+
+	ofSetColor(0, 0, 0);
+	ofSetLineWidth(1);
+
+	//draw the edges
+	for (auto& edge : edges) ofDrawLine(vertices[edge[0]].toVec3(), vertices[edge[1]].toVec3());
+}
+
+
 OctreeNode::OctreeNode()
 {
 	BoundingBox nullBounds(Vector(0, 0, 0), Vector(0, 0, 0));
@@ -74,7 +105,10 @@ void OctreeNode::Distribute(Sphere* obj)
 		}
 	}
 }
+
+
 void OctreeNode::Display(int depth) {
+	cout << "-----------------------------------------------------------------------------------------------" << endl;
 	// depth of the node
 	std::string indent(depth * 2, ' ');
 	// show informations of the current node
@@ -104,4 +138,14 @@ bool BoundingBox::intersectsPlane(const Vector& planePoint, const Vector& planeN
 	if (planeNormal.z > 0) closestPoint.z = m_max.z;
 	float distance = planeNormal.dotProduct(closestPoint - planePoint);
 	return distance <= 0.0f;
+}
+
+void OctreeNode::draw() {
+	m_bounds.draw();
+
+	for (int i = 0; i < 8; ++i) {
+		if (children[i]) {
+			children[i]->draw();
+		}
+	}
 }

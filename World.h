@@ -34,6 +34,9 @@ public:
     // Mise � jour de la simulation
     void update();
     void updateOctree();
+
+    void drawOctree();
+
     OctreeNode* octree;
 
     // Acc�s aux corps rigides
