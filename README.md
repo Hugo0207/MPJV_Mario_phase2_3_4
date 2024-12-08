@@ -7,9 +7,9 @@ Le moteur sera codé en C++, en utilisant le toolkit OpenFrameworks. Ce projet e
 - Tillian Dhume-Sonzogni
 - Hugo Girard
 
-## Phase 2
+## Phase 4
 
-Lors de la phase 2 du projet, l'objectif était d'améliorer le moteur construit lors de la phase 1, afin qu'il permette de gérer un amas de particules
+Lors de la phase 4 du projet, l'objectif était d'ajouter un système simple de détection de collision au moteur de la phase 3, qui permettra la détection de collisions entre une boîte et un plan.
 
 ### Guide pour accéder au code source et exécuter le jeu
 
@@ -21,9 +21,10 @@ Lors de la phase 2 du projet, l'objectif était d'améliorer le moteur construit
 
 ### Commandes
 
-- Déplacements : `UP ARROW, DOWN ARROW, RIGHT ARROW, LEFT ARROW`.
-- Séparation : bouton UI.
-- Ajout d'une nouvelle particule : bouton UI.
+- Lancement du cube : `SPACEBAR`.
+- Paramètres de lancement (point d'application, magnitude, azimut et élévation) : sliders UI
+- Zoom : `MOLETTE SOURIS`
+- Contrôle de la caméra : `LEFT CLICK/RIGHT CLICK/WHEEL CLICK`
 
 ## Liens utiles
 
